@@ -3,6 +3,10 @@
 include('connection.php');
 session_start();
 
+// GETS RID OF OPPONENT
+unset($_SESSION['opp_user']);
+unset($_SESSION['opp_guest']);
+
 if ($_SERVER['REQUEST_METHOD'] == 'POST') 
 {
 	$user_username = $_POST['username'];

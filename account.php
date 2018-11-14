@@ -5,6 +5,10 @@ session_start();
 
 $user_username = $_SESSION['username'];
 
+// GETS RID OF OPPONENT
+unset($_SESSION['opp_user']);
+unset($_SESSION['opp_guest']);
+
 ?>
 <!DOCTYPE html>
 <html>
