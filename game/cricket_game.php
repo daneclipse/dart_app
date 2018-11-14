@@ -6,5 +6,7 @@ $game = $_SESSION['game'];
 
 ?>
 
-<h1>ROUND THE WORLD SETUP</h1>
-<a href="game.php">start game</a>
+<h1>CRICKET GAME</h1>
+
+<a href="account.php">Back to account</a>
+<a href="index.php">Quit</a>

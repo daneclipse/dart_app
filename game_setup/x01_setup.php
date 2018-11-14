@@ -1,6 +1,8 @@
 <?php
 
 session_start();
+$user_username = $_SESSION['username'];
+$game = $_SESSION['game'];
 
 ?>
 

@@ -1,1 +1,10 @@
-<h1>CRICKET GAME</h1>
+<?php
+
+session_start();
+$user_username = $_SESSION['username'];
+$game = $_SESSION['game'];
+
+?>
+
+<h1>CRICKET SETUP</h1>
+<a href="game.php">start game</a>
