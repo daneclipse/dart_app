@@ -58,24 +58,12 @@ $game = $_GET['game'];
 			?>
 		</div>
 
-		<a href="account.php">Back to account</a>
-		<a href="index.php">Logout</a>
+		<div class="account_buttons">
+			<a href="account.php">Back to account</a>
+			<a href="index.php">Logout</a>
+		</div>
 	
 	</div>
-
-<!-- JQUERY -->
-<script src="https://code.jquery.com/jquery-3.3.1.min.js" integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8=" crossorigin="anonymous"></script>
-
-<script type="text/javascript">
-
-	// GET RELEVANT JS SCRIPT DEPENDING ON GAME SELECTED
-	var game = '<?=$game;?>';
-	if (game == 'x01') 
-	{
-		$.getScript('game/x01_game.js');
-
-	}
-</script>
 
 </body>
 </html>

@@ -16,14 +16,17 @@ $game = $_SESSION['game'];
 	<p class="option opp_option">v user</p>
 	<div class="opponent">
 		<?php
+			// IF THE FORM HAS BEEN SUBMITTED (GUEST NAME OR USER LOGGING IN)
 			if ($_SERVER['REQUEST_METHOD'] == 'POST') 
 			{
+				// IF GUEST NAME HAS BEEN SUBMITTED
 				if (isset($_POST['guest_name'])) 
 				{
 					unset($_SESSION['opponent_user']);
 					$_SESSION['opponent_guest'] = $_POST['guest_name'];
 					echo 'Opponent - ' . $_SESSION['opponent_guest'];
 				}
+				// IF LOGGING IN FORM HAS BEEN SUBMITTED
 				else
 				{
 					$opp_username = $_POST['opp_user'];
@@ -55,6 +58,7 @@ $game = $_SESSION['game'];
 					}
 				}
 			}
+			// IF FORM HASNT BEEN SUBMITTED - SINGLE PLAYER SELECTED
 			else
 			{
 				unset($_SESSION['opponent_user']);
@@ -85,3 +89,60 @@ $game = $_SESSION['game'];
 
 
 <a href="game.php" class="button green_button">start game</a>
+
+
+
+<!-- JQUERY -->
+<script src="https://code.jquery.com/jquery-3.3.1.min.js" integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8=" crossorigin="anonymous"></script>
+<script>
+// SETUP GAME
+var options = $('.opp_option');
+options.on('click', function()
+{
+	var text = $(this).text();
+	if (text == 'single') 
+	{
+		localStorage['opponent'] = 'none';
+		$('.opponent').empty();
+	}
+	else if (text == 'v guest')
+	{
+		localStorage['opponent'] = 'guest';
+		$('.opponent').empty();
+		$('.opponent').append(guest_name);
+	}
+	else if (text == 'v user')
+	{
+		localStorage['opponent'] = 'user';
+		$('.opponent').empty();
+		$('.opponent').append(user_form);
+	}
+	else
+	{
+		$('.opponent').empty();
+	}
+	var opponent = localStorage['opponent'];
+	// console.log(opponent);
+})
+
+var user_form = '<form action="game_setup.php?game=x01" method="post" class="opponent"><input type="text" name="opp_user" placeholder="username"><input type="password" name="opp_pass" placeholder="password"><input type="submit" value="Login" class="button green_button"></form>';
+var guest_name = '<form action="game_setup.php?game=x01" method="post" class="opponent"><input type="text" name="guest_name" placeholder="enter name"><input type="submit" value="Enter name" class="button green_button"></form>';
+
+var targets = $('.target_option');
+targets.on('click', function()
+{
+	var target = $(this).text();
+	localStorage['target'] = target;
+	console.log(localStorage['target']);
+})
+
+var legs = $('.leg_option');
+legs.on('click', function()
+{
+	var leg = $(this).text();
+	localStorage['leg'] = leg;
+	console.log(localStorage['leg']);
+})
+
+</script>
+

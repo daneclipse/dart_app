@@ -11,13 +11,12 @@ $game = $_SESSION['game'];
 <html>
 <head>
 	<title></title>
-	<link rel="stylesheet" type="text/css" href="css/general.css">
 </head>
 <body>
 
 	<h1><?=$user_username;?></h1>
 
-	<div class="game_setup">
+	<div class="page">
 		<?php
 			if (isset($game)) 
 			{
@@ -53,9 +52,11 @@ $game = $_SESSION['game'];
 			}
 		?>
 	</div>
-
-	<a href="account.php">Back to account</a>
-	<a href="index.php">Logout</a>
+	
+	<div class="account_buttons">
+		<a href="account.php">Back to account</a>
+		<a href="index.php">Logout</a>
+	</div>
 
 </body>
 </html>
