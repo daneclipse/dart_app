@@ -12,6 +12,7 @@ $game = $_GET['game'];
 <html>
 <head>
 	<title></title>
+	<link rel="stylesheet" type="text/css" href="css/general.css">
 	<link rel="stylesheet" type="text/css" href="css/game_setup.css">
 </head>
 <body>

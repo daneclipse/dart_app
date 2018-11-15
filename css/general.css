@@ -1,0 +1,124 @@
+/* ALL PAGES */
+body, html
+{
+	width: 100%;
+	height: 100%;
+	font-family: 'Helvetica';
+}
+
+*
+{
+	margin: 0;
+	padding: 0;
+	box-sizing: border-box;
+	color: #333;
+}
+
+/* 
+
+COLOURS
+
+- WHTIE - #eee
+- GREY - #f7f5fa
+- DARK GREY - #ccc
+- BLACK - #333
+- GREEN - #91c46b
+- DARK GREEN - #6ca441
+- RED - #d9534f
+- DARK RED - #bc2e29
+
+*/
+.white
+{
+	fill: #eee;
+}
+
+.black 
+{
+	fill: #000;
+}
+
+.green
+{
+	fill: #91c46b;
+}
+
+.red
+{
+	fill: #d9534f;
+}
+
+.page
+{
+	width: 100%;
+	height: 100%;
+	background-color: #f7f5fa;
+}
+
+a
+{
+	text-decoration: none;
+}
+
+input:focus
+{
+	outline: none;
+}
+
+/* BUTTONS */
+
+.button
+{
+	padding: 10px 20px;
+	color: #eee;
+	font-size: 24px;
+	text-align: center;
+	border-radius: 5px;
+	margin: 0 auto;
+}
+
+.button:hover, a:hover
+{
+	cursor: pointer;
+}
+
+.green_button
+{
+	background-color: #91c46b;
+}
+
+.green_button:hover
+{
+	background-color: #6ca441;
+}
+
+.red_button
+{
+	background-color: #d9534f;
+}
+
+.red_button:hover
+{
+	background-color: #bc2e29;
+}
+
+.right
+{
+	float: right;
+}
+
+/* FRIENDLY OPTION - SCALES DOUBLES & TREBLES */
+.scale .scalable 
+{
+	transform: scale(1.1);
+}
+
+.scale .dontScale 
+{
+	transform: scale(0.91);
+}
+
+.scale .scalable .scaleTwo 
+{
+	transform: scale(1.3);
+}

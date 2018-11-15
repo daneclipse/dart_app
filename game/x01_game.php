@@ -21,10 +21,95 @@ else
 ?>
 
 <!-- HTML - INSIDE DIV WITH CLASS PAGE -->
+<link rel="stylesheet" type="text/css" href="css/general.css">
 <style type="text/css">
 	.account_buttons
 	{
 		display: none;
+	}
+
+	.quit_game, .game_buttons
+	{
+		margin-right: 20px;
+	}
+
+	.quit_game
+	{
+		font-size: 30px;
+	}
+
+	.quit_game:hover
+	{
+		cursor: pointer;
+	}
+
+	.player_order
+	{
+		width: 400px;
+		height: 400px;
+		margin: 0 auto;
+		text-align: center;
+	}
+
+	.players_to_order li
+	{
+		width: 100%;
+		height: 90px;
+		line-height: 90px;
+		font-size: 30px;
+		list-style-type: none;
+		background-color: #fff;
+		margin-top: 10px;
+		text-align: left;
+		padding-left: 10px;
+	}
+
+	.players_to_order button
+	{
+		height: 90px;
+		width: 90px;
+	}
+
+	.game
+	{
+		width: 35%;
+		height: 100%;
+		float: left;
+	}
+
+	.board
+	{
+		width: 50%;
+		float: right;
+	}
+
+	.scoreboard
+	{
+		width: 100%;
+		height: 150px;
+	}
+
+	.inner_scoreboard
+	{
+		width: 20%;
+		height: 100px;
+		float: left;
+		background-color: #333;
+		border: 2px solid #f7f5fa;
+		color: #eee;
+		line-height: 100px;
+		font-size: 30px;
+		text-align: center;
+	}
+
+	.inner_scoreboard:nth-of-type(1)
+	{
+		width: 100%;
+		height: 50px;
+		line-height: 50px;
+		background-color: #ccc;
+		text-align: left;
+		padding-left: 10px;
 	}
 </style>
 
@@ -32,7 +117,7 @@ else
 	<div class="players_to_order"></div><!-- CLOSE DIV WITH CLASS PLAYERS_TO_ORDER -->
 </div><!-- CLOSE DIV WITH CLASS PLAYER_ORDER -->
 
-<span class="quit_game">X</span>
+<span class="quit_game right">X</span>
 
 <div class="game"></div><!-- CLOSE DIV WITH CLASS GAME -->
 
@@ -233,11 +318,12 @@ else
 	  </g><!-- CLOSE G WITH ID NUMBERS -->
 	</svg><!-- CLOSE SVG/ DARTBOARD -->
 </div><!-- CLOSE DIV WITH CLASS BOARD -->
+	<div class="game_buttons right">
+		<button class="button red_button" id="undo_score">undo</button>
+		<button class="button green_button" id="friendly">friendly</button>
+	</div><!-- CLOSE DIV WITH CLASS GAME BUTTONS -->
 
-<div class="game_buttons">
-	<button class="button red_button" id="undo_score">undo</button>
-	<button class="button green_button" id="friendly">friendly</button>
-</div><!-- CLOSE DIV WITH CLASS GAME BUTTONS -->
+
 
 
 <!-- JQUERY -->
@@ -285,17 +371,29 @@ else
 				second_dart: 0,
 				third_dart: 0,
 				scores: [],
+				scores_text: [],
 				turn_score: 0,
+				under_twenty: 0,
+				under_forty: 0,
+				under_sixty: 0,
+				sixty_over: 0,
+				hundred_over: 0,
+				one_forty_over: 0,
+				one_eighties: 0,
+				high_score: 0,
 				previous_turn: 0,
-				target_left: 0,
+				target_left: target,
 				total_scored: 0,
+				checkout: 0,
 				num_darts: 0,
 				darts_missed: 0,
+				times_bust: 0,
 				average: 0,
 				nine_average: 0,
 				double_hit: 0,
 				darts_at_double: 0,
-				double_percent: 0
+				double_percent: 0,
+				leg_outcome: ''
 			},
 			game_stats: 
 			{
@@ -305,10 +403,22 @@ else
 				leg_scores: [],
 				leg_darts: [],
 				leg_averages: [],
+				leg_checkouts: [],
 				leg_doubles: [],
+				double_percents: [],
 				total_scored: 0,
 				total_darts: 0,
-				game_average: 0
+				game_average: 0,
+				double_percent: 0,
+				biggest_checkout: 0,
+				under_twenty: 0,
+				under_forty: 0,
+				under_sixty: 0,
+				sixty_over: 0,
+				hundred_over: 0,
+				one_forty_over: 0,
+				one_eighties: 0,
+				high_score: 0
 			}
 		}
 		players.players.push(player);
@@ -318,7 +428,7 @@ else
 	var playerOrder = $('.player_order');
 	var playersToOrder = $('.players_to_order');
 	var submitOrder = document.createElement('button');
-	$(submitOrder).addClass('greenButton button');
+	$(submitOrder).addClass('button green_button');
 
 	// FUNCTION TO MOVE AN ITEM IN THE ARRAY TO ANOTHER INDEX
 	function arraymove(arr, fromIndex, toIndex) 
@@ -423,7 +533,7 @@ else
 			{
 				$('.game').show();
 				$('.board').show();
-				$('.gameButtons').show();
+				$('.game_buttons').show();
 				players.players[0].throw_first = true;
 				players.players[1].throw_first = false;
 				localStorage.players = JSON.stringify(players.players);
@@ -447,6 +557,12 @@ else
 		else
 		{
 			createPlayer( user_name, opp_name, target_num, legs );
+			$('.player_order').hide();
+			$('.game').show();
+			$('.board').show();
+			$('.game_buttons').show();
+			players.players[0].throw_first = true;
+			$.getScript('game/x01_game.js');
 		}
 	}
 
