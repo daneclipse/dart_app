@@ -5,6 +5,9 @@ session_start();
 $user_username = $_SESSION['username'];
 $game = $_SESSION['game'];
 
+unset($_SESSION['opponent_guest']);
+unset($_SESSION['opponent_user']);
+
 ?>
 
 <h1>X01 GAME</h1>
@@ -88,17 +91,21 @@ $game = $_SESSION['game'];
 </div>
 
 
-<a href="game.php" class="button green_button">start game</a>
-
-
-
 <!-- JQUERY -->
 <script src="https://code.jquery.com/jquery-3.3.1.min.js" integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8=" crossorigin="anonymous"></script>
 <script>
+
+var start_button = '<a href="game.php" class="button green_button">start game</a>';
 // SETUP GAME
-var options = $('.opp_option');
-options.on('click', function()
+var opp_options = $('.opp_option');
+opp_options.on('click', function()
 {
+	localStorage.clear();
+	for (var i = 0; i < opp_options.length; i++) 
+	{
+		$(opp_options[i]).addClass('opaque');
+		$(this).removeClass('opaque');
+	}
 	var text = $(this).text();
 	if (text == 'single') 
 	{
@@ -125,23 +132,41 @@ options.on('click', function()
 	// console.log(opponent);
 })
 
-var user_form = '<form action="game_setup.php?game=x01" method="post" class="opponent"><input type="text" name="opp_user" placeholder="username"><input type="password" name="opp_pass" placeholder="password"><input type="submit" value="Login" class="button green_button"></form>';
-var guest_name = '<form action="game_setup.php?game=x01" method="post" class="opponent"><input type="text" name="guest_name" placeholder="enter name"><input type="submit" value="Enter name" class="button green_button"></form>';
+var user_form = '<form action="game_setup.php?game=x01" method="post" class="opponent"><input type="text" name="opp_user" placeholder="username"><input type="password" name="opp_pass" placeholder="password"><input type="submit" value="Login" class="button green_button" id="u_login"></form>';
+var guest_name = '<form action="game_setup.php?game=x01" method="post" class="opponent"><input type="text" name="guest_name" placeholder="enter name"><input type="submit" value="Enter name" class="button green_button" id="g_name"></form>';
 
 var targets = $('.target_option');
 targets.on('click', function()
-{
+{	
+	for (var i = 0; i < targets.length; i++) 
+	{
+		$(targets[i]).addClass('opaque');
+		$(this).removeClass('opaque');
+	}
 	var target = $(this).text();
 	localStorage['target'] = target;
-	console.log(localStorage['target']);
+	$('#target_selected').text(target);
 })
 
 var legs = $('.leg_option');
 legs.on('click', function()
 {
+	for (var i = 0; i < legs.length; i++) 
+	{
+		$(legs[i]).addClass('opaque');
+		$(this).removeClass('opaque');
+	}
 	var leg = $(this).text();
 	localStorage['leg'] = leg;
-	console.log(localStorage['leg']);
+
+	if (localStorage['opponent'] == undefined || localStorage['opponent'] == '' || localStorage['target'] == undefined || localStorage['leg'] == undefined) 
+	{
+		$(start_button).remove();
+	}
+	else
+	{
+		$('.game_setup').append(start_button);
+	}
 })
 
 </script>

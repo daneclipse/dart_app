@@ -112,12 +112,11 @@ else
 		padding-left: 10px;
 	}
 </style>
+<span class="quit_game right">X</span>
 
 <div class="player_order">
 	<div class="players_to_order"></div><!-- CLOSE DIV WITH CLASS PLAYERS_TO_ORDER -->
 </div><!-- CLOSE DIV WITH CLASS PLAYER_ORDER -->
-
-<span class="quit_game right">X</span>
 
 <div class="game"></div><!-- CLOSE DIV WITH CLASS GAME -->
 
@@ -349,7 +348,8 @@ else
 	var legs = Number(localStorage['leg']);
 
 	// PLAYERS ARRAY
-	var players = {
+	var players = 
+	{
 		current: 0,
 		players: []
 	}

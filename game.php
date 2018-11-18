@@ -14,9 +14,6 @@ $game = $_SESSION['game'];
 	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 </head>
 <body>
-
-	<h1><?=$user_username;?></h1>
-
 	<div class="page">
 		<?php
 			if (isset($game)) 
@@ -53,11 +50,5 @@ $game = $_SESSION['game'];
 			}
 		?>
 	</div>
-	
-	<div class="account_buttons">
-		<a href="account.php">Back to account</a>
-		<a href="index.php">Logout</a>
-	</div>
-
 </body>
 </html>

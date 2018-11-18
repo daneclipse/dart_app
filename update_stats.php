@@ -45,7 +45,7 @@ if ($game == 'x01')
 		$d_percent = $_GET['percent'];
 		$outcome = $_GET['outcome'];
 
-		$insert = "INSERT INTO x01_leg (username, opponent, target_score, under_twenty, under_forty, under_sixty, sixty_over, hundred_over, one_forty_over, one_eighties, high_score, total_scored, num_darts, average, checkout, double_hit, double_percent, leg_outcome) VALUES ('$player', '$opp', '$target', '$u_twenty', '$u_forty', '$u_sixty', '$sixty', '$one_hundred', '$one_forty', '$max', '$highest', '$scored', '$darts', '$average', '$checkout', '$double', '$d_percent', '$outcome')";
+		$insert = "INSERT INTO x01_leg (game_date, username, opponent, target_score, under_twenty, under_forty, under_sixty, sixty_over, hundred_over, one_forty_over, one_eighties, high_score, total_scored, num_darts, average, checkout, double_hit, double_percent, leg_outcome) VALUES (NOW(), '$player', '$opp', '$target', '$u_twenty', '$u_forty', '$u_sixty', '$sixty', '$one_hundred', '$one_forty', '$max', '$highest', '$scored', '$darts', '$average', '$checkout', '$double', '$d_percent', '$outcome')";
 
 		$insert_query = mysqli_query($dbc, $insert);
 		$data_inserted = mysqli_affected_rows($dbc);
@@ -79,7 +79,7 @@ if ($game == 'x01')
 		$d_percent = $_GET['percent'];
 		$checkout = $_GET['checkout'];
 
-		$insert = "INSERT INTO x01_game (username, opponent, target_score, legs_needed, legs_won, legs_played, game_outcome, under_twenty, under_forty, under_sixty, sixty_over, hundred_over, one_forty_over, one_eighties, high_score, total_scored, total_darts, average, double_percent, biggest_checkout) VALUES ('$player', '$opp', '$target', '$needed', '$won', '$played', '$outcome', '$u_twenty', '$u_forty', '$u_sixty', '$sixty', '$one_hundred', '$one_forty', '$max', '$highest', '$scored', '$darts', '$average', '$d_percent', '$checkout')";
+		$insert = "INSERT INTO x01_game (game_date, username, opponent, target_score, legs_needed, legs_won, legs_played, game_outcome, under_twenty, under_forty, under_sixty, sixty_over, hundred_over, one_forty_over, one_eighties, high_score, total_scored, total_darts, average, double_percent, biggest_checkout) VALUES (NOW(), '$player', '$opp', '$target', '$needed', '$won', '$played', '$outcome', '$u_twenty', '$u_forty', '$u_sixty', '$sixty', '$one_hundred', '$one_forty', '$max', '$highest', '$scored', '$darts', '$average', '$d_percent', '$checkout')";
 		$insert_query = mysqli_query($dbc, $insert);
 		$data_inserted = mysqli_affected_rows($dbc);
 		if ($data_inserted > 0) 

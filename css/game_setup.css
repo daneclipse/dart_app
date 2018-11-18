@@ -3,7 +3,8 @@
 {
 	width: 900px;
 	height: 600px;
-	border: 2px solid black;
+	margin: 0 auto;
+	clear: both;
 }
 
 .game_setup h1
@@ -21,16 +22,33 @@
 .setup_option h3, .setup_option p
 {
 	height: 50px;
+	width: 90%;
+	margin: 0 auto;
 	line-height: 50px;
+	margin-bottom: 10px;
+	background-color: #fff;
+	border-radius: 5px;
 }
 
 .opponent
 {
-	margin-top: 50px;
+	margin-top: 70px;
 }
 
 .opponent input
 {
 	height: 50px;
-	width: 100%;
+	width: 90%;
+	margin: 0 auto;
+	margin-bottom: 10px;
+	border: none;
+	border-radius: 5px;
+	text-align: left;
+	padding-left: 10px;
+}
+
+#u_login, #g_name
+{
+	text-align: center;
+	padding-left: 0;
 }

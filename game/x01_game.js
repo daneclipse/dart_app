@@ -371,9 +371,9 @@ function bust( player, dartNum )
 	{
 		player.leg_stats.darts_at_double++;
 	}
-	player.first_dart = 0;
-	player.second_dart = 0;
-	player.third_dart = 0;
+	player.leg_stats.first_dart = 0;
+	player.leg_stats.second_dart = 0;
+	player.leg_stats.third_dart = 0;
 	if (dartNum == 1) 
 	{
 		player.leg_stats.scores.pop();
@@ -427,32 +427,68 @@ undo.on('click', function()
 	{
 		$('.board').show();
 		$('.game').show();
+		$(finish_leg).remove();
 		// $('#checkoutArea').show();
 		// $('#friendly').show();
 		// $('.statsArea').remove();
 		// $('.nextLegButton').remove();
 		// $(completeGameButton).remove();
-		if (players.players.length > 1) 
-		{
-			for (var i = 0; i < players.players.length; i++) 
-			{
-				players.players[i].leg_stats.leg_outcome = '';
-				changeOrder(i);
-			}
-		}
+		// if (players.players.length > 1) 
+		// {
+		// 	for (var i = 0; i < players.players.length; i++) 
+		// 	{
+		// 		players.players[i].leg_stats.leg_outcome = '';
+		// 		changeOrder(i);
+		// 	}
+		// }
 		var player = players.players[players.current];
-		player.leg_stats.leg_outcome = '';
+		player.game_stats.legs_won--;
+		player.game_stats.legs_played--;
+		player.leg_stats.darts_at_double--;
+		player.game_stats.game_outcome = '';
 		player.leg_stats.average = 0;
 		player.leg_stats.checkout = 0;
-		player.leg_stats.darts_at_double--;
+		player.leg_stats.double_hit = 0;
 		player.leg_stats.double_percent = 0;
-		undo_score( player );
-		player.thirdDart = 0;
-		var lastThrow = player.leg_stats.scores_text[player.leg_stats.scores_text.length - 1];
-		var secondLastThrow = player.leg_stats.scores_text[player.leg_stats.scores_text.length - 2];
+		if (player.leg_stats.previous_turn >= player.leg_stats.high_score) 
+		{
+			player.leg_stats.high_score = 0;
+		}
 
-		$(player.firstSection).text( secondLastThrow );
-		$(player.secondSection).text( lastThrow );
+		if (player.leg_stats.previous_turn >= 140) 
+		{
+			player.leg_stats.one_forty_over--;
+		}
+		else if (player.leg_stats.previous_turn >= 100)
+		{
+			player.leg_stats.hundred_over--;
+		}
+		else if (player.leg_stats.previous_turn >= 60)
+		{
+			player.leg_stats.sixty_over--;
+		}
+		else if (player.leg_stats.previous_turn >= 41 && player.leg_stats.previous_turn < 60)
+		{
+			player.leg_stats.under_sixty--;
+		}
+		else if (player.leg_stats.previous_turn >= 21 && player.leg_stats.previous_turn < 40)
+		{
+			player.leg_stats.under_forty--;
+		}
+		else
+		{
+			player.leg_stats.under_twenty--;
+		}
+		
+		player.leg_stats.previous_turn = 0;
+		undo_score( player );
+		player.leg_stats.third_dart = 0;
+		$(player.thirdSection).text('');
+		player.leg_stats.second_dart = player.leg_stats.scores_text[player.leg_stats.scores_text.length - 1];
+		player.leg_stats.first_dart = player.leg_stats.scores_text[player.leg_stats.scores_text.length - 2];
+
+		$(player.firstSection).text( player.leg_stats.first_dart );
+		$(player.secondSection).text( player.leg_stats.second_dart );
 		$(player.totalSection).text( player.leg_stats.total_scored );
 		$(player.targetSection).text( player.leg_stats.target_left );
 		// checkCheckout( 2, player );
@@ -672,19 +708,16 @@ function playerGo()
 	}
 };
 
+var finish_leg = document.createElement('button');
 // RUNS WHEN LEG HAS BEEN WON
 function leg_winner( player )
 {
 	alert( player.name + ' won the leg');
+	$('.game').hide();
+	$('.board').hide();
 	player.leg_stats.leg_outcome = 'won';
 	player.game_stats.legs_won++;
 	player.leg_stats.checkout = player.leg_stats.turn_score;
-	var finish_leg = document.createElement('button');
-	$('.game').hide();
-	$('.board').hide();
-	// update_leg_stats
-	update_leg_stats();
-	// show_stats
 	if ( player.game_stats.legs_won == player.game_stats.legs_needed ) 
 	{
 		// won the game
@@ -694,6 +727,7 @@ function leg_winner( player )
 		$('.page').prepend( finish_leg );
 		finish_leg.onclick = function()
 		{
+			update_leg_stats();
 			update_game_db();
 			location.replace('account.php');
 		}
@@ -704,10 +738,14 @@ function leg_winner( player )
 		$('.page').prepend( finish_leg );
 		finish_leg.onclick = function()
 		{
+			update_leg_stats();
 			reset_leg_stats();
-			for (var i = 0; i < players.players.length; i++) 
+			if (players.players.length > 1) 
 			{
-				changeOrder(i);
+				for (var i = 0; i < players.players.length; i++) 
+				{
+					changeOrder(i);
+				}
 			}
 			$('.game').show();
 			$('.board').show();
@@ -766,8 +804,8 @@ function update_leg_stats()
 		player.game_stats.one_forty_over += player.leg_stats.one_forty_over;
 		player.game_stats.one_eighties += player.leg_stats.one_eighties;
 
-		update_leg_db( player );
 		update_game_stats( player );
+		update_leg_db( player );
 	}
 }
 
@@ -843,7 +881,7 @@ function update_leg_db( player )
 	{
 		if (this.readyState == 4 && this.status == 200) 
 		{
-			$('#stats').innerHTML = this.responseText;
+			$('.stats').innerHTML = this.responseText;
 		}
 	}
 	xmlhttp.open('GET', 'update_stats.php?name='+player.name+
@@ -891,7 +929,7 @@ function update_game_db()
 		{
 			if (this.readyState == 4 && this.status == 200) 
 			{
-				$('#stats').innerHTML = this.responseText;
+				$('.stats').innerHTML = this.responseText;
 			}
 		}
 		xmlhttp.open('GET', 'update_stats.php?name='+player.name+
@@ -900,6 +938,7 @@ function update_game_db()
 			'&target='+player.target+
 			'&legs_needed='+player.game_stats.legs_needed+
 			'&legs_won='+player.game_stats.legs_won+
+			'&legs_played='+player.game_stats.legs_played+
 			'&outcome='+player.game_stats.game_outcome+
 			'&u20='+player.game_stats.under_twenty+
 			'&u40='+player.game_stats.under_forty+
