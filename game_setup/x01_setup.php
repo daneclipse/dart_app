@@ -12,7 +12,7 @@ unset($_SESSION['opponent_user']);
 
 <h1>X01 GAME</h1>
 
-<div class="setup_option">
+<div class="setup_option x01_setup">
 	<h3>OPPONENT</h3>
 	<p class="option opp_option">single</p>
 	<p class="option opp_option">v guest</p>
@@ -72,7 +72,7 @@ unset($_SESSION['opponent_user']);
 	</div>
 </div>
 
-<div class="setup_option">
+<div class="setup_option x01_setup">
 	<h3>TARGET</h3>
 	<p class="option target_option">1001</p>
 	<p class="option target_option">601</p>
@@ -81,7 +81,7 @@ unset($_SESSION['opponent_user']);
 	<p class="option target_option">101</p>
 </div>
 
-<div class="setup_option">
+<div class="setup_option x01_setup">
 	<h3>LEGS</h3>
 	<p class="option leg_option">1</p>
 	<p class="option leg_option">2</p>
@@ -132,8 +132,8 @@ opp_options.on('click', function()
 	// console.log(opponent);
 })
 
-var user_form = '<form action="game_setup.php?game=x01" method="post" class="opponent"><input type="text" name="opp_user" placeholder="username"><input type="password" name="opp_pass" placeholder="password"><input type="submit" value="Login" class="button green_button" id="u_login"></form>';
-var guest_name = '<form action="game_setup.php?game=x01" method="post" class="opponent"><input type="text" name="guest_name" placeholder="enter name"><input type="submit" value="Enter name" class="button green_button" id="g_name"></form>';
+var user_form = '<form action="game_setup.php?game=x01" method="post" class="opponent"><input type="text" name="opp_user" placeholder="username"><input type="password" name="opp_pass" placeholder="password"><input type="submit" value="Login" class="button green_button u_login"></form>';
+var guest_name = '<form action="game_setup.php?game=x01" method="post" class="opponent"><input type="text" name="guest_name" placeholder="enter name"><input type="submit" value="Enter name" class="button green_button g_name"></form>';
 
 var targets = $('.target_option');
 targets.on('click', function()

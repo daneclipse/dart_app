@@ -14,7 +14,6 @@
 
 .setup_option
 {
-	width: 33.3%;
 	float: left;
 	height: 500px;
 }
@@ -28,6 +27,16 @@
 	margin-bottom: 10px;
 	background-color: #fff;
 	border-radius: 5px;
+}
+
+.x01_setup
+{
+	width: 33.3%
+}
+
+.cricket_setup
+{
+	width: 50%;
 }
 
 .opponent

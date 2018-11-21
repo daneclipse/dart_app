@@ -158,6 +158,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST')
   integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8="
   crossorigin="anonymous"></script>
 <script type="text/javascript">
+	window.localStorage.clear();
   	var gameTabs = $('.game_name');
   	gameTabs.on('click', function()
   	{
