@@ -125,10 +125,10 @@ else if (isset($_SESSION['opponent_guest']))
 <div class="game">
 	<div class="game_scoreboard">
 		<h3 class="inner_game_scoreboard" id="gameInnings">First Innings</p>
-		<h3 class="inner_game_scoreboard half_inner">Total <p class="enter_score" id="game_score"></p></h3>
-		<h3 class="inner_game_scoreboard half_inner">Wickets <p class="enter_score" id="gameWickets"></p></h3>
-		<h3 class="inner_game_scoreboard clear">First Innings <p class="enter_score" id="firstInningsScore"></p></h3>
-		<h3 class="inner_game_scoreboard clear">Opponent Score <p class="enter_score" id="oppScore"></p></h3>
+		<h3 class="inner_game_scoreboard half_inner">Total <p class="enter_score" id="game_score">0</p></h3>
+		<h3 class="inner_game_scoreboard half_inner">Wickets <p class="enter_score" id="gameWickets">0</p></h3>
+		<h3 class="inner_game_scoreboard clear">First Innings <p class="enter_score" id="firstInningsScore">0</p></h3>
+		<h3 class="inner_game_scoreboard clear">Opponent Score <p class="enter_score" id="oppScore">0</p></h3>
 	</div>
 	<div class="half_scoreboard bowlerArea">
 		<div class="inner_half"><p class="bowler_score" id="bowlerOne">1</div>
@@ -408,7 +408,49 @@ else if (isset($_SESSION['opponent_guest']))
 			{
 				wickets_left: 10,
 				wickets_taken: 0,
-				wickets: [],
+				wickets: 
+				[
+					{
+						wicket: 1,
+						score: ''
+					},
+					{
+						wicket: 2,
+						score: ''
+					},
+					{
+						wicket: 3,
+						score: ''
+					},
+					{
+						wicket: 4,
+						score: ''
+					},
+					{
+						wicket: 5,
+						score: ''
+					},
+					{
+						wicket: 6,
+						score: ''
+					},
+					{
+						wicket: 7,
+						score: ''
+					},
+					{
+						wicket: 8,
+						score: ''
+					},
+					{
+						wicket: 9,
+						score: ''
+					},
+					{
+						wicket: 10,
+						score: ''
+					}
+				],
 				first_dart: 0,
 				second_dart: 0,
 				third_dart: 0,
@@ -428,7 +470,49 @@ else if (isset($_SESSION['opponent_guest']))
 			{
 				wickets_left: 10,
 				wickets_fallen: 0,
-				wickets: [],				
+				wickets:
+				[
+					{
+						wicket: 1,
+						score: ''
+					},
+					{
+						wicket: 2,
+						score: ''
+					},
+					{
+						wicket: 3,
+						score: ''
+					},
+					{
+						wicket: 4,
+						score: ''
+					},
+					{
+						wicket: 5,
+						score: ''
+					},
+					{
+						wicket: 6,
+						score: ''
+					},
+					{
+						wicket: 7,
+						score: ''
+					},
+					{
+						wicket: 8,
+						score: ''
+					},
+					{
+						wicket: 9,
+						score: ''
+					},
+					{
+						wicket: 10,
+						score: ''
+					}
+				],				
 				first_dart: 0,
 				second_dart: 0,
 				third_dart: 0,

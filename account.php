@@ -143,7 +143,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST')
 						echo 'NO STATS FOR ' . $user_username;
 					}
 				?>
-			</div> -->
+			</div> 
 		</div>
 
 

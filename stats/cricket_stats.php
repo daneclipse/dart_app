@@ -6,8 +6,8 @@ $stats = $_SESSION['stats'];
 
 if (!isset($_GET['type'])) 
 {
-	echo '<a href="stats.php?stats=cricket&type=inning">Inning Stats</a>';
-	echo '<a href="stats.php?stats=cricket&type=game">Game Stats</a>';
+	echo '<a href="stats.php?stats=cricket&type=inning&page=1">Inning Stats</a>';
+	echo '<a href="stats.php?stats=cricket&type=game&page=1">Game Stats</a>';
 }
 else
 {
@@ -32,8 +32,8 @@ else
 
 		if ($user_rows > 0) 
 		{
-			echo '<a href="stats.php?stats=cricket&type=inning">Inning Stats</a>';
-			echo '<a href="stats.php?stats=cricket&type=game">Game Stats</a>';
+			echo '<a href="stats.php?stats=cricket&type=inning&page=1">Inning Stats</a>';
+			echo '<a href="stats.php?stats=cricket&type=game&page=1">Game Stats</a>';
 			echo '
 			<table>
 				<tr>
@@ -142,8 +142,8 @@ else
 
 		if ($game_rows > 0) 
 		{
-			echo '<a href="stats.php?stats=cricket&type=inning">Inning Stats</a>';
-			echo '<a href="stats.php?stats=cricket&type=game">Game Stats</a>';
+			echo '<a href="stats.php?stats=cricket&type=inning&page=1">Inning Stats</a>';
+			echo '<a href="stats.php?stats=cricket&type=game&page=1">Game Stats</a>';
 			echo '
 			<table>
 				<tr>
@@ -225,8 +225,8 @@ else
 	}
 	else
 	{
-		echo '<a href="stats.php?stats=cricket&type=inning">Inning Stats</a>';
-		echo '<a href="stats.php?stats=cricket&type=game">Game Stats</a>';
+		echo '<a href="stats.php?stats=cricket&type=inning&page=1">Inning Stats</a>';
+		echo '<a href="stats.php?stats=cricket&type=game&page=1">Game Stats</a>';
 	}
 }
 

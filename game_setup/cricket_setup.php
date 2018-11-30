@@ -73,7 +73,7 @@ unset($_SESSION['opponent_user']);
 <div class="setup_option cricket_setup">
 	<h3>Innings</h3>
 	<p class="option innings_option">1</p>
-	<p class="option innings_option">2</p>
+	<!-- <p class="option innings_option">2</p> -->
 </div>
 
 <!-- JQUERY -->

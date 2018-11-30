@@ -6,8 +6,8 @@ $stats = $_SESSION['stats'];
 
 if (!isset($_GET['type'])) 
 {
-	echo '<a href="stats.php?stats=x01&type=leg">Leg Stats</a>';
-	echo '<a href="stats.php?stats=x01&type=game">Game Stats</a>';
+	echo '<a href="stats.php?stats=x01&type=leg&page=1">Leg Stats</a>';
+	echo '<a href="stats.php?stats=x01&type=game&page=1">Game Stats</a>';
 }
 else
 {
@@ -32,8 +32,8 @@ else
 
 		if ($user_rows > 0) 
 		{
-			echo '<a href="stats.php?stats=x01&type=leg">Leg Stats</a>';
-			echo '<a href="stats.php?stats=x01&type=game">Game Stats</a>';
+			echo '<a href="stats.php?stats=x01&type=leg&page=1">Leg Stats</a>';
+			echo '<a href="stats.php?stats=x01&type=game&page=1">Game Stats</a>';
 			echo '
 			<table>
 				<tr>
@@ -159,8 +159,8 @@ else
 
 		if ($game_rows > 0) 
 		{
-			echo '<a href="stats.php?stats=x01&type=leg">Leg Stats</a>';
-			echo '<a href="stats.php?stats=x01&type=game">Game Stats</a>';
+			echo '<a href="stats.php?stats=x01&type=leg&page=1">Leg Stats</a>';
+			echo '<a href="stats.php?stats=x01&type=game&page=1">Game Stats</a>';
 			echo '
 			<table>
 				<tr>
@@ -279,8 +279,8 @@ else
 	}
 	else
 	{
-		echo '<a href="stats.php?stats=x01&type=leg">Leg Stats</a>';
-		echo '<a href="stats.php?stats=x01&type=game">Game Stats</a>';
+		echo '<a href="stats.php?stats=x01&type=leg&page=1">Leg Stats</a>';
+		echo '<a href="stats.php?stats=x01&type=game&page=1">Game Stats</a>';
 	}
 }
 
