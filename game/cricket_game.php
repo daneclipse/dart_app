@@ -16,9 +16,6 @@ else if (isset($_SESSION['opponent_guest']))
 
 ?>
 
-<h1>CRICKET GAME</h1>
-
-<!-- HTML - INSIDE DIV WITH CLASS PAGE -->
 <link rel="stylesheet" type="text/css" href="css/general.css">
 <style type="text/css">
 	.account_buttons
@@ -116,6 +113,9 @@ else if (isset($_SESSION['opponent_guest']))
 		float: left;
 	}
 </style>
+
+<!-- HTML - INSIDE DIV WITH CLASS PAGE -->
+<h1>CRICKET GAME</h1>
 <span class="quit_game right">X</span>
 
 <div class="player_order">

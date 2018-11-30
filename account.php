@@ -90,6 +90,10 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST')
 							{
 								$games_won++;
 							}
+							else 
+							{
+								$games_won--;
+							}
 						}
 						$percent = ($games_won / $games_played) * 100;
 						$win_percent = number_format($percent, 2);
@@ -109,13 +113,14 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST')
 						echo 'NO STATS FOR ' . $user_username;
 					}
 				?>
-				<a href="stats.php?stats=x01" class="button green_button">view stats</a>
+				<a href="stats.php?stats=x01&type=game&page=1" class="button green_button">view stats</a>
 			</div>
-<!-- 			<div class="user_stats" id="cricket_stats">
+			
+ 			<div class="user_stats" id="cricket_stats">
 				<h2>CRICKET STATS</h2>
 				<?php
 
-					$select = "SELECT * FROM x01_game WHERE username = '$user_username'";
+					$select = "SELECT * FROM cricket_game WHERE username = '$user_username'";
 					$select_query = mysqli_query($dbc, $select);
 					$select_rows = mysqli_num_rows($select_query);
 					if ($select_rows > 0) 
@@ -127,6 +132,10 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST')
 							if ($won == 'won') 
 							{
 								$games_won++;
+							}
+							else
+							{
+								$games_won--;
 							}
 						}
 						$percent = ($games_won / $games_played) * 100;
@@ -143,13 +152,9 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST')
 						echo 'NO STATS FOR ' . $user_username;
 					}
 				?>
+				<a href="stats.php?stats=cricket&type=game&page=1" class="button green_button">view stats</a>
 			</div> 
 		</div>
-
-
-	<!-- 		<div class="overall_stats" id="cricket_stats">
-				<h2>CRICKET STATS</h2>
-			</div> -->
 
 	</div>
 
@@ -195,10 +200,10 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST')
   	})
 
   	var x01_info = '<p>x01 is probably the most popular and the simplest game of darts. Each player starts with a score (101, 301,501,601 or 1001) and the object is to get to exactly zero by finishing on a double. Each player takes turns to throw rounds of three darts and subtracting the sum of those darts from the current score.</p><a class="button green_button" href="game_setup.php?game=x01">start game</a>';
- 	var cricket_info = '<p>Cricket game require two players, one being the bowler and one being the batsman. The bowler aims at bullseye and every outer bull hit takes a wicket and every bullseye takes two wickets. The batsman needs to score as many runs as possible before their 10 wickets have been taken. Every score over 41 hit scores runs for the batsman.</p><a href="game_setup.php?game=cricket" class="button green_button" >start game</a>';
- 	var hundred_info = '<p>100 Darts is very simple game where you choose your target and score the highest amount of points possible using 100 darts. Score one point for every single, two points for double and three points for every treble hit.</p><a href="game_setup.php?game=hundred" class="button green_button" >start game</a>';
+ 	var cricket_info = '<p>Cricket game require two players, one being the bowler and one being the batsman. The bowler aims at bullseye and every outer bull hit takes a wicket and every bullseye takes two wickets. The batsman needs to score as many runs as possible before their 10 wickets have been taken. Every score over 41 hit scores runs for the batsman.</p><a href="game_setup.php?game=cricket" class="button green_button">start game</a>';
+ 	var hundred_info = '<p>100 Darts is very simple game where you choose your target and score the highest amount of points possible using 100 darts. Score one point for every single, two points for double and three points for every treble hit.</p><a href="game_setup.php?game=hundred" class="button green_button">start game</a>';
  	var nandc_info = '<p>Noughts and crosses requires two players, one being noughts and the other being crosses. A traditional game of noughts and crosses using targets on the dartboard. Hit three targets in either a horizontal, vertical or diagonal line to win the game.</p><a href="game_setup.php?game=nandc" class="button green_button" >start game</a>';
-	var rtw_info = '<p>Round the world uses all the numbers on the board. Simply hit every section on the board in number order starting from 1.</p><a href="game_setup.php?game=rtw" class="button green_button" >start game</a>';
+	var rtw_info = '<p>Round the world uses all the numbers on the board. Simply hit every section on the board in number order starting from 1.</p><a href="game_setup.php?game=rtw" class="button green_button">start game</a>';
 	var myIndex = 0;
    	function carousel() 
    	{
