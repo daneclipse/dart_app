@@ -333,6 +333,7 @@ function end_game(player)
 				'&score='+player.game.total_score+
 				'&missed='+player.game.darts_missed, true);
 			xmlhttp.send();
+			location.replace('account.php');
 		}
 	})
 }

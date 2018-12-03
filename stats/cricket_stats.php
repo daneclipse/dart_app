@@ -99,7 +99,10 @@ else
 		}
 		else
 		{
-			echo 'NO USER FOUND IN cricket_innings DATABASE';
+			// NO USER FOUND IN CRICET_INNINGS DB
+			echo '<a href="stats.php?stats=cricket&type=inning&page=1">Inning Stats</a>';
+			echo '<a href="stats.php?stats=cricket&type=game&page=1">Game Stats</a><br />';
+			echo 'NO STATS AVAILABLE';
 		}
 
 		// /* PAGINATION */
@@ -188,7 +191,10 @@ else
 		}
 		else
 		{
-			echo 'NO STATS FOUND IN cricket_game DATABASE';
+			// NO USER FOUND IN CRICET_INNINGS DB
+			echo '<a href="stats.php?stats=cricket&type=inning&page=1">Inning Stats</a>';
+			echo '<a href="stats.php?stats=cricket&type=game&page=1">Game Stats</a><br />';
+			echo 'NO STATS AVAILABLE';
 		}
 
 		// /* PAGINATION */

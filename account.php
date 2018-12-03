@@ -13,7 +13,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST')
 {
 	if (isset($_POST['logout'])) 
 	{
-		$select_user = "SELECT * FROM users WHERE username= '$user_username'";
+		$select_user = "SELECT * FROM users WHERE username = '$user_username'";
 		$select_query = mysqli_query($dbc, $select_user);
 		$user_found = mysqli_num_rows($select_query);
 		if ($user_found > 0) 
@@ -90,10 +90,6 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST')
 							{
 								$games_won++;
 							}
-							else 
-							{
-								$games_won--;
-							}
 						}
 						$percent = ($games_won / $games_played) * 100;
 						$win_percent = number_format($percent, 2);
@@ -133,10 +129,6 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST')
 							{
 								$games_won++;
 							}
-							else
-							{
-								$games_won--;
-							}
 						}
 						$percent = ($games_won / $games_played) * 100;
 						$win_percent = number_format($percent, 2);
@@ -149,7 +141,11 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST')
 					}
 					else
 					{
-						echo 'NO STATS FOR ' . $user_username;
+						echo
+						'<table class="user_stats_table">
+						<tr><th>Games Played</th><th>Win %</th><th>Games Won</th><tr>
+						<tr><td>0</td><td>0</td><td>0</td></tr>
+						</table>';
 					}
 				?>
 				<a href="stats.php?stats=cricket&type=game&page=1" class="button green_button">view stats</a>
@@ -213,7 +209,11 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST')
 					}
 					else
 					{
-						echo 'NO STATS FOR ' . $user_username;
+						echo
+						'<table class="user_stats_table">
+						<tr><th>Games Played</th><th>Most Frequent Target</th><th>Highest Points Tally</th><tr>
+						<tr><td>0</td><td>0</td><td>0</td></tr>
+						</table>';
 					}
 				?>
 				<a href="stats.php?stats=darts_at&type=game&page=1" class="button green_button">view stats</a>

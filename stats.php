@@ -21,7 +21,7 @@ $_SESSION['stats'] = $_GET['stats'];
 
 	<a href="stats.php?stats=x01">X01</a>
 	<a href="stats.php?stats=cricket">Cricket</a>
-	<a href="stats.php?stats=darts_at">100 Darts</a>
+	<a href="stats.php?stats=darts_at">Darts at</a>
 	<a href="stats.php?stats=rtw">RTW</a>
 	<a href="stats.php?stats=nandc">NandC</a>
 
