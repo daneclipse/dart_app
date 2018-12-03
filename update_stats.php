@@ -129,7 +129,7 @@ else if ($game == 'cricket')
 
 		$insert = "INSERT INTO cricket_innings (game_date, username, opponent, outcome, outcome_method, wickets_left, outer_bulls, bullseyes, wides, conceded, runs_scored, over_forty_one, under_forty_one, run_outs, innings_score, bowled_darts, batted_darts) VALUES( NOW(), '$player', '$opp', '$outcome', '$method', '$wickets_left', '$outer_bulls', '$bullseyes', '$wides', '$conceded', '$runs', '$over', '$under', '$run_outs', '$score', '$bowled', '$batted')";
 		$insert_query = mysqli_query($dbc, $insert);
-		$data_inserted = mysqli_num_rows($dbc);
+		$data_inserted = mysqli_affected_rows($dbc);
 		if ($data_inserted > 0) 
 		{
 			echo 'DATA INSERTED INTO CRICKET INNINGS DB';
@@ -158,7 +158,7 @@ else if ($game == 'cricket')
 
 		$insert = "INSERT INTO cricket_game (game_date, username, opponent, innings_selected, innings_won, game_outcome, wicket_difference, run_difference, outer_bulls, bullseyes, wides, conceded, runs, over, under, run_outs) VALUES (NOW(), '$player', '$opp', '$innings', '$innings_won', '$outcome', '$wicket_diif', '$run_diff', '$outer_bulls', '$bullseyes', '$wides', '$conceded', '$runs', '$over', '$under', '$run_outs')";
 		$insert_query = mysqli_query($dbc, $insert);
-		$data_inserted = mysqli_num_rows($dbc);
+		$data_inserted = mysqli_affected_rows($dbc);
 
 		if ($data_inserted > 0) 
 		{
@@ -168,6 +168,31 @@ else if ($game == 'cricket')
 		{
 			echo 'CRICKET GAME DATA NOT INSERTED';
 		}
+	}
+}
+else if ($game == 'darts_at')
+{
+	$player = $_GET['name'];
+	$darts = $_GET['darts'];
+	$target = $_GET['target'];
+	$singles = $_GET['singles'];
+	$doubles = $_GET['doubles'];
+	$trebles = $_GET['trebles'];
+	$points = $_GET['points'];
+	$score = $_GET['score'];
+	$missed = $_GET['missed'];
+
+	$insert = "INSERT INTO darts_at_game (game_date, username, darts_selected, target, singles, doubles, trebles, points_scored, total_scored, missed_darts) VALUES (NOW(), '$player', '$darts', '$target', '$singles', '$doubles', '$trebles', '$points', '$score', '$missed')";
+	$insert_query = mysqli_query($dbc, $insert);
+	$data_inserted = mysqli_affected_rows($dbc);
+
+	if ($data_inserted > 0) 
+	{
+		echo 'DATA INSERTED INTO DARTS AT GAME DB';
+	}
+	else
+	{
+		echo 'DARTS AT GAME DATA NOT INSERTED';
 	}
 }
 

@@ -28,10 +28,10 @@ $game = $_SESSION['game'];
 					$game = 'Cricket';
 					include('game/cricket_game.php');
 				}
-				else if ($game == 'hundred')
+				else if ($game == 'darts_at')
 				{
-					$game = '100 Darts';
-					include('game/hundred_game.php');
+					$game = 'Darts at';
+					include('game/darts_at_game.php');
 				}
 				else if ($game == 'rtw')
 				{

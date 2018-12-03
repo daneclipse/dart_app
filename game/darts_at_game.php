@@ -139,7 +139,7 @@ $game = $_SESSION['game'];
 			</div>
 		</div>
 	</div>
-	<div class="scoreboard" id="hundredScoreboard">
+	<div class="scoreboard" id="dartsAtScoreboard">
 		<div class="inner_scoreboard"><p id="nameSection"></p></div>
 		<div class="inner_scoreboard"><p id="firstSection" style="color:#fff;"></p></div>
 		<div class="inner_scoreboard"><p id="secondSection" style="color:#fff;"></p></div>
@@ -413,6 +413,6 @@ $game = $_SESSION['game'];
 
 	create_player(player_name, target_num, darts);
 
-	$.getScript('game/hundred_game.js');
+	$.getScript('game/darts_at_game.js');
 
 </script>

@@ -7,4 +7,4 @@ $stats = $_SESSION['stats'];
 ?>
 
 
-<h1>100 DARTS STATS FOR <?=$user_username;?></h1>
+<h1>DARTS AT STATS FOR <?=$user_username;?></h1>

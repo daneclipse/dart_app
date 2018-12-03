@@ -21,7 +21,7 @@ $_SESSION['stats'] = $_GET['stats'];
 
 	<a href="stats.php?stats=x01">X01</a>
 	<a href="stats.php?stats=cricket">Cricket</a>
-	<a href="stats.php?stats=hundred">100 Darts</a>
+	<a href="stats.php?stats=darts_at">100 Darts</a>
 	<a href="stats.php?stats=rtw">RTW</a>
 	<a href="stats.php?stats=nandc">NandC</a>
 
@@ -36,9 +36,9 @@ $_SESSION['stats'] = $_GET['stats'];
 			{
 				include('stats/cricket_stats.php');
 			}
-			else if ($stats == 'hundred')
+			else if ($stats == 'darts_at')
 			{
-				include('stats/hundred_stats.php');
+				include('stats/darts_at_stats.php');
 			}
 			else if ($stats == 'rtw')
 			{

@@ -55,13 +55,13 @@ single.on('click', function(e)
 		var points = 0;
 	}
 
-	if (player.game.darts_left > 0) 
+	if (player.game.darts_left >= 1) 
 	{
 		score_dart(player, text, score, points);
 	}
 	else
 	{
-		end_game();
+		end_game(player);
 	}
 
 })
@@ -84,13 +84,13 @@ double.on('click', function(e)
 		var points = 0;
 	}
 
-	if (player.game.darts_left > 0) 
+	if (player.game.darts_left >= 1) 
 	{
 		score_dart(player, text, score, points);
 	}
 	else
 	{
-		end_game();
+		end_game(player);
 	}
 
 })
@@ -113,13 +113,13 @@ treble.on('click', function(e)
 		var points = 0;
 	}
 
-	if (player.game.darts_left > 0) 
+	if (player.game.darts_left >= 1) 
 	{
 		score_dart(player, text, score, points);
 	}
 	else
 	{
-		end_game();
+		end_game(player);
 	}
 
 })
@@ -131,13 +131,13 @@ board.on('click', function()
 	var score = 0;
 	var points = 0;
 
-	if (player.game.darts_left > 0) 
+	if (player.game.darts_left >= 1) 
 	{
 		score_dart(player, text, score, points);
 	}
 	else
 	{
-		end_game();
+		end_game(player);
 	}
 
 })
@@ -192,6 +192,11 @@ function score_dart(player, text, score, points)
 	$(points_area).text(player.game.total_points);
 	$(score_area).text(player.game.total_score);
 	$(missed_area).text(player.game.darts_missed);
+
+	if (player.game.darts_left == 0) 
+	{
+		end_game(player);
+	}
 }
 
 function score_third_dart(player)
@@ -209,6 +214,11 @@ function score_third_dart(player)
 var undo = $('#undo_score');
 undo.on('click', function()
 {
+	if ($('.board').is(':hidden')) 
+	{
+		$('.board').show();
+		$('#complete_game').remove();
+	}
 	var target = player.target_num;
 	if (player.game.scores.length > 0) 
 	{
@@ -289,14 +299,15 @@ function undo_dart(player)
 	$(missed_area).text(player.game.darts_missed);
 }
 
-function end_game()
+function end_game(player)
 {
 	$('.board').hide();
 	var complete_game = document.createElement('button');
 	$(complete_game).addClass('button green_button');
+	$(complete_game).attr('id', 'complete_game');
 	$(complete_game).text('complete game');
 
-	$('.page').append(complete_game);
+	$('.game').append(complete_game);
 
 	$(complete_game).on('click', function()
 	{
@@ -312,17 +323,16 @@ function end_game()
 					$('#stats').innerHTML = this.responseText;
 				}
 			}
-			xmlhttp.open('GET', '../updateStats.php?name='+players[0].name+
-				'&game=100'+
-				'&targetNumber='+players[0].targetNumber+
-				'&singles='+players[0].singlesHit+
-				'&doubles='+players[0].doublesHit+
-				'&trebles='+players[0].treblesHit+
-				'&points='+players[0].pointsScored+
-				'&score='+players[0].totalScored+
-				'&missed='+players[0].dartsMissed, true);
+			xmlhttp.open('GET', 'update_stats.php?name='+player.name+
+				'&darts='+player.darts_selected+
+				'&target='+player.target_num+
+				'&singles='+player.game.singles_hit+
+				'&doubles='+player.game.doubles_hit+
+				'&trebles='+player.game.trebles_hit+
+				'&points='+player.game.total_points+
+				'&score='+player.game.total_score+
+				'&missed='+player.game.darts_missed, true);
 			xmlhttp.send();
-			location.replace('../account.php?username='+players[0].name);
 		}
 	})
 }

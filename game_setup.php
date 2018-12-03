@@ -60,10 +60,10 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST')
 						$game = 'Cricket';
 						include('game_setup/cricket_setup.php');
 					}
-					else if ($game == 'hundred')
+					else if ($game == 'darts_at')
 					{
-						$game = '100 Darts';
-						include('game_setup/hundred_setup.php');
+						$game = 'Darts at';
+						include('game_setup/darts_at_setup.php');
 					}
 					else if ($game == 'rtw')
 					{

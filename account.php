@@ -54,8 +54,8 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST')
 				<div class="game_name" id="cricket_name">
 					<p>Cricket</p>
 				</div>
-				<div class="game_name" id="hundred_name">
-					<p>100 Darts</p>
+				<div class="game_name" id="darts_at_name">
+					<p>Darts at</p>
 				</div>
 				<div class="game_name" id="rtw_name">
 					<p>Round the world</p>
@@ -180,9 +180,9 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST')
   			{
   				$('.game_info').html(cricket_info);
   			}
-  			else if (id == 'hundred_name')
+  			else if (id == 'darts_at_name')
   			{
-  				$('.game_info').html(hundred_info);
+  				$('.game_info').html(darts_at_info);
   			}
   			else if (id == 'nandc_name')
   			{
@@ -201,7 +201,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST')
 
   	var x01_info = '<p>x01 is probably the most popular and the simplest game of darts. Each player starts with a score (101, 301,501,601 or 1001) and the object is to get to exactly zero by finishing on a double. Each player takes turns to throw rounds of three darts and subtracting the sum of those darts from the current score.</p><a class="button green_button" href="game_setup.php?game=x01">start game</a>';
  	var cricket_info = '<p>Cricket game require two players, one being the bowler and one being the batsman. The bowler aims at bullseye and every outer bull hit takes a wicket and every bullseye takes two wickets. The batsman needs to score as many runs as possible before their 10 wickets have been taken. Every score over 41 hit scores runs for the batsman.</p><a href="game_setup.php?game=cricket" class="button green_button">start game</a>';
- 	var hundred_info = '<p>100 Darts is very simple game where you choose your target and score the highest amount of points possible using 100 darts. Score one point for every single, two points for double and three points for every treble hit.</p><a href="game_setup.php?game=hundred" class="button green_button">start game</a>';
+ 	var darts_at_info = '<p>Darts at is very simple game where you choose how many darts you want to throw at a specified target. The aim of the game is to get the highest points tally possible, score one point for every single, two points for double and three points for every treble hit.</p><a href="game_setup.php?game=darts_at" class="button green_button">start game</a>';
  	var nandc_info = '<p>Noughts and crosses requires two players, one being noughts and the other being crosses. A traditional game of noughts and crosses using targets on the dartboard. Hit three targets in either a horizontal, vertical or diagonal line to win the game.</p><a href="game_setup.php?game=nandc" class="button green_button" >start game</a>';
 	var rtw_info = '<p>Round the world uses all the numbers on the board. Simply hit every section on the board in number order starting from 1.</p><a href="game_setup.php?game=rtw" class="button green_button">start game</a>';
 	var myIndex = 0;
