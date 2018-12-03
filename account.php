@@ -114,7 +114,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST')
 					}
 				?>
 				<a href="stats.php?stats=x01&type=game&page=1" class="button green_button">view stats</a>
-			</div>
+			</div><!-- CLOSE DIV FOR X01 STATS -->
 			
  			<div class="user_stats" id="cricket_stats">
 				<h2>CRICKET STATS</h2>
@@ -153,7 +153,72 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST')
 					}
 				?>
 				<a href="stats.php?stats=cricket&type=game&page=1" class="button green_button">view stats</a>
-			</div> 
+			</div><!-- CLOSE DIV FOR CRICKET STATS -->
+
+			<div class="user_stats" id="darts_at_stats">
+				<h2>DARTS AT STATS</h2>
+				<?php
+
+					$select = "SELECT * FROM darts_at_game WHERE username = '$user_username'";
+					$select_query = mysqli_query($dbc, $select);
+					$select_rows = mysqli_num_rows($select_query);
+					if ($select_rows > 0) 
+					{
+						$games_played = $select_rows;
+						
+						// GET MOST FREQUENT TARGET
+						$most_frequent = "SELECT target, COUNT(target) AS num FROM darts_at_game GROUP BY target ORDER BY num DESC LIMIT 1";
+						$frequent_query = mysqli_query($dbc, $most_frequent);
+						$frequent_rows = mysqli_num_rows($frequent_query);
+
+						if ($frequent_rows > 0) 
+						{
+							while ($row = mysqli_fetch_array($frequent_query)) 
+							{
+								$frequent_target = $row['target'];
+							}
+
+							// GET HIGHEST POINTS TALLY
+							$highest = "SELECT * FROM darts_at_game WHERE username = '$user_username' ORDER BY points_scored DESC LIMIT 1";
+							$highest_query = mysqli_query($dbc, $highest);
+							$highest_rows = mysqli_num_rows($highest_query);
+
+							if ($highest_rows > 0) 
+							{
+								while($r = mysqli_fetch_array($highest_query))
+								{
+									$highest_points = $r['points_scored'];
+								}
+
+								echo
+								'<table>
+									<tr>
+										<th>Games Played</th><th>Most Frequent Target</th><th>Highest Points Tally</th>
+									<tr>
+									<tr>
+										<td>' . $games_played . '</td><td>' . $frequent_target . '</td><td>' . $highest_points . '</td>
+									</tr>
+								</table>';
+							}
+							else
+							{
+								echo 'COULDNT GET HIGHEST POINTS TALLY FROM DB';
+							}
+						}
+						else
+						{
+							echo 'COULDNT GET THE MOST FREQUENT TARGET FROM DB';
+						}
+
+					}
+					else
+					{
+						echo 'NO STATS FOR ' . $user_username;
+					}
+				?>
+				<a href="stats.php?stats=darts_at&type=game&page=1" class="button green_button">view stats</a>
+			</div><!-- CLOSE DIV FOR DARTS AT STATS -->
+
 		</div>
 
 	</div>
