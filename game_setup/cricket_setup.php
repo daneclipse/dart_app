@@ -4,12 +4,20 @@ session_start();
 $user_username = $_SESSION['username'];
 $game = $_SESSION['game'];
 
-unset($_SESSION['opponent_guest']);
-unset($_SESSION['opponent_user']);
+// unset($_SESSION['opponent_guest']);
+// unset($_SESSION['opponent_user']);
+
+
 
 ?>
 
 <h1>CRICKET SETUP</h1>
+
+<div class="setup_option cricket_setup">
+	<h3>Innings</h3>
+	<p class="option innings_option">1</p>
+	<p class="option innings_option">2</p>
+</div>
 
 <div class="setup_option cricket_setup">
 	<h3>OPPONENT</h3>
@@ -20,16 +28,19 @@ unset($_SESSION['opponent_user']);
 			// IF THE FORM HAS BEEN SUBMITTED (GUEST NAME OR USER LOGGING IN)
 			if ($_SERVER['REQUEST_METHOD'] == 'POST') 
 			{
+
 				// IF GUEST NAME HAS BEEN SUBMITTED
 				if (isset($_POST['guest_name'])) 
 				{
 					unset($_SESSION['opponent_user']);
 					$_SESSION['opponent_guest'] = $_POST['guest_name'];
 					echo 'Opponent - ' . $_SESSION['opponent_guest'];
+					echo '<a href="game.php" class="button green_button">start game</a>';
 				}
 				// IF LOGGING IN FORM HAS BEEN SUBMITTED
 				else
 				{
+					unset($_SESSION['opponent_guest']);
 					$opp_username = $_POST['opp_user'];
 					$opp_password = $_POST['opp_pass'];
 
@@ -44,20 +55,23 @@ unset($_SESSION['opponent_user']);
 						}
 						if ($db_password == $opp_password) 
 						{
-							unset($_SESSION['opponent_guest']);
 							$_SESSION['opponent_user'] = $opp_username;
 							echo 'Opponent - ' . $_SESSION['opponent_user'];
+							echo '<a href="game.php" class="button green_button">start game</a>';
 						}
 						else
 						{
+							unset($_SESSION['opponent_user']);
 							echo 'INCORRECT PASSWORD';
 						}
 					}
 					else
 					{
+						unset($_SESSION['opponent_user']);
 						echo 'NO USER WITH THAT USERNAME';
 					}
 				}
+				// var_dump($_SESSION);
 			}
 			// IF FORM HASNT BEEN SUBMITTED - SINGLE PLAYER SELECTED
 			else
@@ -70,11 +84,7 @@ unset($_SESSION['opponent_user']);
 	</div>
 </div>
 
-<div class="setup_option cricket_setup">
-	<h3>Innings</h3>
-	<p class="option innings_option">1</p>
-	<!-- <p class="option innings_option">2</p> -->
-</div>
+
 
 <!-- JQUERY -->
 <script src="https://code.jquery.com/jquery-3.3.1.min.js" integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8=" crossorigin="anonymous"></script>
@@ -133,6 +143,22 @@ innings.on('click', function()
 	}
 	
 })
+
+// function opponent(opp)
+// {
+// 	var xmlhttp;
+// 	xmlhttp = new XMLHttpRequest();
+// 	xmlhttp.onreadystatechange = function()
+// 	{
+// 		if (this.readyState == 4 && this.status == 200) 
+// 		{
+// 			$('.stats').innerHTML = this.responseText;
+// 		}
+// 	}
+// 	xmlhttp.open('POST', 'cricket_setup.php?user='+player.name+
+// 		'&opp='+opp, true);
+// 	xmlhttp.send();
+// }
 
 </script>
 

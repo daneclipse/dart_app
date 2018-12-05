@@ -386,6 +386,8 @@ else if (isset($_SESSION['opponent_guest']))
 
 	// LOCAL STORAGE VARIABLES
 	var user_name = localStorage['user'];
+
+	// NOT GETTING INNINGS - NaN
 	var innings = Number(localStorage['innings']);
 
 	// PLAYERS ARRAY

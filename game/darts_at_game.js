@@ -1,3 +1,4 @@
+/* VARIABLES */
 var darts_left_section = $('#darts_left');
 
 var single = $('.single');
@@ -15,7 +16,6 @@ var missed_area = $('#missed');
 var first_area = $('#firstSection');
 var second_area = $('#secondSection');
 var third_area = $('#thirdSection');
-var total_area = $('#totalSection');
 
 var friendly = $('#friendly');
 var wire = $('#refwire');
@@ -37,6 +37,7 @@ var player = players[0];
 var target_num = player.target_num;
 var dart = 0;
 
+/* EVERY SINGLE WITH CLICK EVENT */
 single.on('click', function(e)
 {
 	e.stopPropagation();
@@ -47,6 +48,10 @@ single.on('click', function(e)
 		var text = 'single';
 		var score = num_hit * 1;
 		var points = 1;
+		if (target_num == 25) 
+		{
+			text = 'outer bull';
+		}
 	}
 	else
 	{
@@ -66,6 +71,7 @@ single.on('click', function(e)
 
 })
 
+/* EVERY DOUBLE WITH CLICK EVENT */
 double.on('click', function(e)
 {
 	e.stopPropagation();
@@ -76,6 +82,10 @@ double.on('click', function(e)
 		var text = 'double';
 		var score = num_hit * 2;
 		var points = 2;
+		if (target_num == 25) 
+		{
+			text = 'bullseye';
+		}
 	}
 	else
 	{
@@ -86,6 +96,7 @@ double.on('click', function(e)
 
 	if (player.game.darts_left >= 1) 
 	{
+
 		score_dart(player, text, score, points);
 	}
 	else
@@ -95,6 +106,7 @@ double.on('click', function(e)
 
 })
 
+/* EVERY TREBLE WITH CLICK EVENT */
 treble.on('click', function(e)
 {
 	e.stopPropagation();
@@ -124,6 +136,7 @@ treble.on('click', function(e)
 
 })
 
+/* AREA THAT IS NOT A SINGLE, DOUBLE OR TREBLE WITH CLICK EVENT */
 board.on('click', function()
 {
 	dart++;
@@ -142,7 +155,7 @@ board.on('click', function()
 
 })
 
-
+/* SCORES THE DART, ADDS SCORE TO PLAYER STATS */
 function score_dart(player, text, score, points)
 {
 	player.game.darts_left--;
@@ -162,11 +175,11 @@ function score_dart(player, text, score, points)
 		dart = 0;
 	}
 
-	if (text == 'single') 
+	if (text == 'single' || text == 'outer bull') 
 	{
 		player.game.singles_hit++;
 	}
-	else if (text == 'double')
+	else if (text == 'double' || text == 'bullseye')
 	{
 		player.game.doubles_hit++;
 	}
@@ -199,6 +212,7 @@ function score_dart(player, text, score, points)
 	}
 }
 
+/* SCORES THIRD DART, ENDS TURNS */
 function score_third_dart(player)
 {
 	player.game.turn_points.push(player.game.points);
@@ -211,6 +225,7 @@ function score_third_dart(player)
 	$(thirdSection).text('');
 }
 
+/* UNDO BUTTON WITH CLICK EVENT */
 var undo = $('#undo_score');
 undo.on('click', function()
 {
@@ -251,6 +266,7 @@ undo.on('click', function()
 
 })
 
+/* FUNCTION TO UNDO THE DART WHEN THE UNDO BUTTON IS CLICKED */
 function undo_dart(player)
 {
 	var target = player.target_num;
@@ -299,6 +315,7 @@ function undo_dart(player)
 	$(missed_area).text(player.game.darts_missed);
 }
 
+/* FUNCTION TO END THE GAME, ADD STATS TO DB & RETURN TO ACCOUNT */
 function end_game(player)
 {
 	$('.board').hide();
@@ -337,12 +354,5 @@ function end_game(player)
 		}
 	})
 }
-
-
-
-
-
-
-
 
 

@@ -11,11 +11,13 @@ $game = $_SESSION['game'];
 
 <div class="setup_option darts_at_setup">
 	<h3>Number of darts</h3>
-<!-- 	<p class="option darts_option">9 (3 sets)</p>
+<!-- 	
+	<p class="option darts_option">9 (3 sets)</p>
 	<p class="option darts_option">27 (9 sets)</p>
 	<p class="option darts_option">45 (15 sets)</p>
 	<p class="option darts_option">63 (21 sets)</p>
-	<p class="option darts_option">81 (27 sets)</p> -->
+	<p class="option darts_option">81 (27 sets)</p> 
+-->
 	<p class="option darts_option">10</p>
 	<p class="option darts_option">25</p>
 	<p class="option darts_option">50</p>
@@ -24,7 +26,7 @@ $game = $_SESSION['game'];
 </div>
 
 <div class="setup_option darts_at_setup">
-	<h3>Number of darts</h3>
+	<h3>Target</h3>
 	<p class="option target_option">20</p>
 	<p class="option target_option">19</p>
 	<p class="option target_option">18</p>

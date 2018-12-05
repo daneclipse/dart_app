@@ -1,4 +1,4 @@
-
+/* VARIABLES */
 var board = $('.board');
 var single = $('.single');
 var double = $('.double');
@@ -22,7 +22,7 @@ var oppScoreSection = $('#oppScore');
 var friendly = $('#friendly');
 var wire = $('#refwire');
 
-// MAKES DOUBLES, TREBLES & BULLSEYE BIGGER
+/* MAKES DOUBLES, TREBLES & BULLSEYE BIGGER */
 friendly.on('click', function(evt)
 {
 	evt.stopPropagation();
@@ -37,10 +37,11 @@ friendly.on('click', function(evt)
 	$('.board').toggleClass('scale');
 });
 
-// DISPLAYS FIRST PLAYER NAME & PLAYER TYPE IN THE PLAYER SCOREBOARD
+/* DISPLAYS FIRST PLAYER NAME & PLAYER TYPE IN THE PLAYER SCOREBOARD */
 $('#nameSection').text(players.players[0].name);
 $('#playerTypeSection').text(players.players[0].player_type);
 
+/* EVERY SINGLE WITH CLICK EVENT */
 single.on('click', function(e)
 {
 	var currentPlayer = players.players[players.current];
@@ -59,6 +60,7 @@ single.on('click', function(e)
 	}
 })
 
+/* EVERY DOUBLE WITH CLICK EVENT */
 double.on('click', function(e)
 {
 	var currentPlayer = players.players[players.current];
@@ -77,6 +79,7 @@ double.on('click', function(e)
 	}
 })
 
+/* EVERY TREBLE WITH CLICK EVENT */
 treble.on('click', function(e)
 {
 	var currentPlayer = players.players[players.current];
@@ -96,6 +99,7 @@ treble.on('click', function(e)
 	}
 })
 
+/* AREA THAT IS NOT SINGLE, DOUBLE OR TREBLE WITH CLICK EVENT */
 board.on('click', function(e)
 {
 	var currentPlayer = players.players[players.current];
@@ -113,7 +117,7 @@ board.on('click', function(e)
 	}
 })
 
-// SCORE THE BOWLER
+/* FUNCTION TO SCORE THE BOWLER */
 var wickets = 0;
 var total = 0;
 function score_bowler( player, score, text, class_name )
@@ -188,7 +192,7 @@ function score_bowler( player, score, text, class_name )
 }
 
 
-// FUNCTION TO SHOW HOW MANY WICKETS HAVE BEEN TAKING FOR CURRENT TURN IN TOTAL SECTION
+/* FUNCTION TO SHOW HOW MANY WICKETS HAVE BEEN TAKING FOR CURRENT TURN IN TOTAL SECTION */
 function bowler_turn( player, num )
 {
 	if (num == 1) 
@@ -203,7 +207,7 @@ function bowler_turn( player, num )
 	
 }
 
-// SCORE THE BATSMAN
+/* FUNCTION TO SCORE THE BATSMAN */
 function score_batsman( player, score, text )
 {
 	player.batsman_innings.num_darts++;
@@ -246,6 +250,7 @@ function score_batsman( player, score, text )
 	}
 }
 
+/* FUNCTION USED IN THE SCORE_BATSMAN FUNCTION */
 function batsman_turn( player, score, text, dart )
 {
 	player.batsman_innings.scores.push(score);
@@ -275,6 +280,7 @@ function batsman_turn( player, score, text, dart )
 	}
 }
 
+/* FUNCITON TO CHECK BATSMAN SCORE - IF THEY HAVE WON THE GAME OR NOT */
 function check_batsman_score( player )
 {
 	for (var i = 0; i < wicketScoreSection.length; i++) 
@@ -286,46 +292,11 @@ function check_batsman_score( player )
 			$(wicketScoreSection[i]).text(player.batsman_innings.runs_scored);
 		}
 	}
-	// IF PLAYER HAS BOWLED - OPPONENT HAS A SCORE TO BEAT
-	if (player.game_stats.bowled > 0)
-	{
-		// IF GAME IS ONE INNINGS
-		if(player.innings == 1) 
-		{
-		// IF CURRENT RUNS SCORED IS BIGGER THAN OPPONENTS SCORE - PLAYER HAS WON
-			if (player.batsman_innings.runs_scored > players.players[0].game_stats.first_innings.score) 
-			{
-				players.players[0].game_stats.bowled++;
-				players.players[1].game_stats.batted++;
-				for (var i = 0; i < players.players.length; i++) 
-				{
-					update_game_stats(players.players[i]);
-				}
-				check_scores();
-			}
-		}
-		// IF GAME IS TWO INNINGS
-			// else if (player.innings == 2) 
-			// {
-			// 	// GET FIRST PLAYERS TOTAL SCORE AND CURRENT PLAYERS SCORE NOW
-			// 	var score_to_beat = players.players[0].game_stats.total_runs;
-			// 	var total_score = player.game_stats.total_runs + player.batsman_innings.runs_scored;
 
-			// 	if (total_score > score_to_beat) 
-			// 	{
-			// 		players.players[0].game_stats.bowled++;
-			// 		players.players[1].game_stats.batted++;
-			// 		for (var i = 0; i < players.players.length; i++) 
-			// 		{
-			// 			update_game_stats(players.players[i]);
-			// 		}
-			// 		check_scores();
-			// 	}
-			// }
-	}
+	check_current_scores();
 }
 
-// FUNCTION TO CHECK IF SCORE IS EITHER 25 OR 50 (OUTERBULL OR BULLSEYE) = WICKET/ WICKETS TAKEN
+/* FUNCTION TO CHECK IF SCORE IS EITHER 25 OR 50 (OUTERBULL OR BULLSEYE) = WICKET/ WICKETS TAKEN */
 function check_bully( player, score )
 {
 	if (score == 25 || score == 50) 
@@ -371,19 +342,13 @@ function check_bully( player, score )
 			}
 		}
 
-		// players.players[0].bowler_innings.wickets[players.players[1].batsman_innings.wickets_fallen].score = players.players[1].batsman_innings.runs_scored;
-		// wicket_obj['wicket'] = players.players[0].bowler_innings.wickets_taken;
-		// wicket_obj['score'] = 
-		// players.players[0].bowler_innings.wickets.push(wicket_obj);
-		// players.players[1].batsman_innings.wickets.push(wicket_obj);
-
 		wicket_taken();
 
 		return true;
 	}
 }
 
-// FUNCTION TO FADE OUT THE WICKET THAT HAS BEEN HIT & SCORE RELATING TO THAT WICKET
+/* FUNCTION TO FADE OUT THE WICKET THAT HAS BEEN HIT & SCORE RELATING TO THAT WICKET */
 function wicket_taken()
 {
 	for (var i = 0; i < wicketSection.length; i++) 
@@ -427,24 +392,278 @@ function wicket_taken()
 			}
 		}
 	}
+	check_current_scores();
+}
 
-	
-
-	if (players.players[1].batsman_innings.wickets_left <= 0)
+function check_current_scores()
+{
+	if (players.players[0].innings == 1) 
 	{
-		players.players[0].bowler_innings.wickets_left = 0;
-		players.players[1].batsman_innings.wickets_left = 0;
-		players.players[1].batsman_innings.wickets_fallen = 10;
-		players.players[0].game_stats.bowled++;
-		players.players[1].game_stats.batted++;
-		for (var i = 0; i < players.players.length; i++) 
+		// IF FIRST PLAYER HAS BOWLED OUT THE SECOND PLAYER
+		if (players.players[1].game_stats.bowled == 1) 
 		{
-			update_game_stats( players.players[i] );
+			var score_to_beat = players.players[0].game_stats.first_innings.score;
+
+			var current_score = players.players[1].batsman_innings.runs_scored;
+
+			// IF FIRST PLAYERS SCORE IS BIGGER THAN SECOND PLAYERS SCORE - FIRST PLAYER HAS WON WITH WICKETS LEFT
+			if (current_score > score_to_beat) 
+			{
+				players.players[1].game_stats.first_innings.score = players.players[1].batsman_innings.runs_scored;
+				players.players[1].game_stats.first_innings.conceded = score_to_beat;
+				players.players[1].game_stats.first_innings.outcome = 'won';
+				players.players[1].game_stats.first_innings.wickets_fallen = players.players[1].batsman_innings.wickets_fallen;
+				players.players[1].game_stats.first_innings.wickets_taken = players.players[1].bowler_innings.wickets_taken;
+
+				players.players[0].game_stats.first_innings.conceded = current_score;
+				players.players[0].game_stats.first_innings.outcome = 'lost';
+				players.players[0].game_stats.first_innings.wickets_fallen = 10;
+				players.players[0].game_stats.first_innings.wickets_taken = players.players[0].bowler_innings.wickets_taken;
+
+				var run_difference = current_score - score_to_beat;
+				players.players[1].game_stats.first_innings.run_difference = run_difference;
+				players.players[0].game_stats.first_innings.run_difference = run_difference;
+
+				players.players[1].game_stats.first_innings.outcome_method = 'won by ' + run_difference + ' runs';
+				players.players[0].game_stats.first_innings.outcome_method = 'lost by ' + run_difference + ' runs';
+
+				players.players[0].game_stats.bowled = 1;
+				players.players[1].game_stats.batted = 1;
+
+				players.players[0].game_stats.innings_played = 1;
+				players.players[1].game_stats.innings_played = 1;
+				players.players[1].game_stats.innings_won = 1;
+
+				players.players[0].game_stats.game_outcome = 'lost';
+				players.players[0].game_stats.outcome_method = players.players[0].game_stats.first_innings.outcome_method;
+				players.players[1].game_stats.game_outcome = 'won';
+				players.players[1].game_stats.outcome_method = players.players[1].game_stats.first_innings.outcome_method;
+				end_game();
+			}
+			else
+			{
+				// IF FIRST PLAYERS SCORE IS NOT BIGGER, KEEP THROWING UNTIL WICKETS ARE ALL GONE
+				if (players.players[1].batsman_innings.wickets_left <= 0) 
+				{
+					players.players[1].batsman_innings.wickets_left = 0;
+					players.players[1].batsman_innings.wicekts_fallen = 10;
+
+					players.players[0].bowler_innings.wickets_left = 0;
+
+					players.players[1].game_stats.first_innings.score = players.players[1].batsman_innings.runs_scored;
+					players.players[1].game_stats.first_innings.wickets_fallen = 10;
+
+					players.players[0].game_stats.first_innings.wickets_taken = players.players[0].bowler_innings.wickets_taken;
+
+					players.players[1].game_stats.batted++;
+					players.players[0].game_stats.bowled++;
+				}
+
+				// IF FIRST PLAYER HAS BOWLED & BATTED - FIND THE WINNER
+				if (players.players[1].game_stats.batted == 1) 
+				{
+					var first_player_score = players.players[0].batsman_innings.runs_scored;
+					var second_player_score = players.players[1].batsman_innings.runs_scored;
+					if (first_player_score > second_player_score) 
+					{
+						players.players[0].game_stats.first_innings.outcome = 'won';
+						players.players[1].game_stats.first_innings.outcome = 'lost';
+
+						players.players[0].game_stats.first_innings.wickets_fallen = 10;
+						players.players[0].game_stats.first_innings.wickets_taken = players.players[0].bowler_innings.wickets_taken;
+						players.players[0].game_stats.first_innings.conceded = second_player_score;
+
+						players.players[1].game_stats.first_innings.wickets_fallen = 10;
+						players.players[1].game_stats.first_innings.wickets_taken = players.players[1].bowler_innings.wickets_taken;
+
+						var run_difference = first_player_score - second_player_score;
+						players.players[0].game_stats.first_innings.run_difference = run_difference;
+						players.players[1].game_stats.first_innings.run_difference = run_difference;
+						players.players[0].game_stats.first_innings.outcome_method = 'won by ' + run_difference + ' runs';
+						players.players[1].game_stats.first_innings.outcome_method = 'lost by ' + run_difference + ' runs';
+					}
+					else if (first_player_score < second_player_score)
+					{
+						players.players[0].game_stats.first_innings.outcome = 'lost';
+						players.players[1].game_stats.first_innings.outcome = 'won';
+
+						players.players[0].game_stats.first_innings.wickets_fallen = 10;
+						players.players[0].game_stats.first_innings.wickets_taken = players.players[0].bowler_innings.wickets_taken;
+
+						players.players[1].game_stats.first_innings.conceded = first_player_score;
+						players.players[1].game_stats.first_innings.wickets_fallen = 10;
+						players.players[1].game_stats.first_innings.wickets_taken = players.players[1].bowler_innings.wickets_taken;
+
+						var run_difference = second_player_score - first_player_score;
+						players.players[0].game_stats.first_innings.run_difference = run_difference;
+						players.players[1].game_stats.first_innings.run_difference = run_difference;
+						players.players[1].game_stats.first_innings.outcome_method = 'won by ' + run_difference + ' runs';
+						players.players[0].game_stats.first_innings.outcome_method = 'lost by ' + run_difference + ' runs';
+					}
+					else
+					{
+						players.players[0].game_stats.first_innings.outcome = 'draw';
+						players.players[1].game_stats.first_innings.outcome = 'draw';
+
+						players.players[0].game_stats.first_innings.wickets_fallen = 10;
+						players.players[0].game_stats.first_innings.wickets_taken = players.players[0].bowler_innings.wickets_taken;
+						players.players[1].game_stats.first_innings.wickets_fallen = 10;
+						players.players[1].game_stats.first_innings.wickets_taken = players.players[1].bowler_innings.wickets_taken;
+					}
+					end_game();
+				}
+				// IF SECOND PLAYER SCORES MORE THAN TARGET BEFORE ALL WICKETS HAVE BEEN TAKEN
+				else
+				{
+					var score_to_beat = players.players[0].game_stats.first_innings.score;
+
+					var current_score = players.players[1].batsman_innings.runs_scored;
+
+					// IF FIRST PLAYERS SCORE IS BIGGER THAN SECOND PLAYERS SCORE - FIRST PLAYER HAS WON WITH WICKETS LEFT
+					if (current_score > score_to_beat) 
+					{
+						players.players[1].game_stats.first_innings.score = players.players[1].batsman_innings.runs_scored;
+						players.players[1].game_stats.first_innings.conceded = score_to_beat;
+						players.players[1].game_stats.first_innings.outcome = 'won';
+						players.players[1].game_stats.first_innings.wickets_fallen = players.players[1].batsman_innings.wickets_fallen;
+						players.players[1].game_stats.first_innings.wickets_taken = players.players[1].bowler_innings.wickets_taken;
+
+						players.players[0].game_stats.first_innings.conceded = current_score;
+						players.players[0].game_stats.first_innings.outcome = 'lost';
+						players.players[0].game_stats.first_innings.wickets_fallen = 10;
+						players.players[0].game_stats.first_innings.wickets_taken = players.players[0].bowler_innings.wickets_taken;
+
+						var run_difference = current_score - score_to_beat;
+						players.players[1].game_stats.first_innings.run_difference = run_difference;
+						players.players[0].game_stats.first_innings.run_difference = run_difference;
+
+						players.players[1].game_stats.first_innings.outcome_method = 'won by ' + run_difference + ' runs';
+						players.players[0].game_stats.first_innings.outcome_method = 'lost by ' + run_difference + ' runs';
+						end_game();
+					}
+				}
+			}
 		}
-		check_scores();
+		else
+		{
+			// IF BATSMAN HAS BEEN BOWLED ALL OUT
+			if (players.players[1].batsman_innings.wickets_left <= 0) 
+			{
+				players.players[1].batsman_innings.wickets_left = 0;
+				players.players[1].batsman_innings.wicekts_fallen = 10;
+
+				players.players[0].bowler_innings.wickets_left = 0;
+
+				players.players[1].game_stats.first_innings.score = players.players[1].batsman_innings.runs_scored;
+				players.players[1].game_stats.first_innings.wickets_fallen = 10;
+
+				players.players[0].game_stats.first_innings.wickets_taken = players.players[0].bowler_innings.wickets_taken;
+
+				players.players[1].game_stats.batted++;
+				players.players[0].game_stats.bowled++;
+				change_order();
+			}
+		}
+	}
+	else if (players.players[0].innings == 2)
+	{
+		if (players.players[1].game_stats.bowled == 1 && players.players[0].game_stats.batted == 1) 
+		{
+			var first_player_score = players.players[0].batsman_innings.runs_scored;
+			var second_player_score = players.players[1].batsman_innings.runs_scored;
+			if (first_player_score > second_player_score) 
+			{
+				players.players[0].game_stats.first_innings.outcome = 'won';
+				players.players[1].game_stats.first_innings.outcome = 'lost';
+
+				players.players[0].game_stats.first_innings.wickets_fallen = 10;
+				players.players[0].game_stats.first_innings.wickets_taken = players.players[0].bowler_innings.wickets_taken;
+				players.players[1].game_stats.first_innings.wickets_fallen = 10;
+				players.players[1].game_stats.first_innings.wickets_taken = players.players[1].bowler_innings.wickets_taken;
+			}
+			else if (first_player_score < second_player_score)
+			{
+				players.players[0].game_stats.first_innings.outcome = 'lost';
+				players.players[1].game_stats.first_innings.outcome = 'won';
+
+				players.players[0].game_stats.first_innings.wickets_fallen = 10;
+				players.players[0].game_stats.first_innings.wickets_taken = players.players[0].bowler_innings.wickets_taken;
+				players.players[1].game_stats.first_innings.wickets_fallen = 10;
+				players.players[1].game_stats.first_innings.wickets_taken = players.players[1].bowler_innings.wickets_taken;
+			}
+			else
+			{
+				players.players[0].game_stats.first_innings.outcome = 'draw';
+				players.players[1].game_stats.first_innings.outcome = 'draw';
+
+				players.players[0].game_stats.first_innings.wickets_fallen = 10;
+				players.players[0].game_stats.first_innings.wickets_taken = players.players[0].bowler_innings.wickets_taken;
+				players.players[1].game_stats.first_innings.wickets_fallen = 10;
+				players.players[1].game_stats.first_innings.wickets_taken = players.players[1].bowler_innings.wickets_taken;
+			}
+			next_innings();
+		}
+		// IF PLAYER HAS BOWLED TWICE - HAS A TOTAL TO BEAT WITH THEIR FIRST INNINGS SCORE
+		else if (players.players[1].game_stats.bowled == 2 && players.players[1].game_stats.batted == 2)
+		{
+			var first_player_score = players.players[0].batsman_innings.runs_scored;
+			var second_player_score = players.players[1].batsman_innings.runs_scored;
+			if (first_player_score > second_player_score) 
+			{
+				players.players[0].game_stats.second_innings.outcome = 'won';
+				players.players[1].game_stats.second_innings.outcome = 'lost';
+
+				players.players[0].game_stats.second_innings.wickets_fallen = 10;
+				players.players[0].game_stats.second_innings.wickets_taken = players.players[0].bowler_innings.wickets_taken;
+				players.players[1].game_stats.second_innings.wickets_fallen = 10;
+				players.players[1].game_stats.second_innings.wickets_taken = players.players[1].bowler_innings.wickets_taken;
+			}
+			else if (first_player_score < second_player_score)
+			{
+				players.players[0].game_stats.second_innings.outcome = 'lost';
+				players.players[1].game_stats.second_innings.outcome = 'won';
+
+				players.players[0].game_stats.second_innings.wickets_fallen = 10;
+				players.players[0].game_stats.second_innings.wickets_taken = players.players[0].bowler_innings.wickets_taken;
+				players.players[1].game_stats.second_innings.wickets_fallen = 10;
+				players.players[1].game_stats.second_innings.wickets_taken = players.players[1].bowler_innings.wickets_taken;
+			}
+			else
+			{
+				players.players[0].game_stats.second_innings.outcome = 'draw';
+				players.players[1].game_stats.second_innings.outcome = 'draw';
+
+				players.players[0].game_stats.second_innings.wickets_fallen = 10;
+				players.players[0].game_stats.second_innings.wickets_taken = players.players[0].bowler_innings.wickets_taken;
+				players.players[1].game_stats.second_innings.wickets_fallen = 10;
+				players.players[1].game_stats.second_innings.wickets_taken = players.players[1].bowler_innings.wickets_taken;
+			}
+			end_game();
+		}
+		else
+		{
+			if (players.players[1].batsman_innings.wickets_left <= 0) 
+			{
+				players.players[1].batsman_innings.wickets_left = 0;
+				players.players[1].batsman_innings.wicekts_fallen = 10;
+
+				players.players[0].bowler_innings.wickets_left = 0;
+
+				players.players[1].game_stats.first_innings.score = players.players[1].batsman_innings.runs_scored;
+				players.players[1].game_stats.first_innings.wickets_fallen = 10;
+
+				players.players[0].game_stats.first_innings.conceded = players.players[1].batsman_innings.runs_scored;
+				players.players[0].game_stats.first_innings.wickets_taken = players.players[0].bowler_innings.wickets_taken;
+
+				players.players[1].game_stats.batted++;
+				players.players[0].game_stats.bowled++;
+				change_order();
+			}
+		}
 	}
 }
-	
+
+/* FUNCTION TO UPDATE EVERY PLAYERS GAME STATS AFTER EACH TURN */
 function update_game_stats( player )
 {
 	if (player.player_type == 'bowler') 
@@ -482,7 +701,6 @@ function update_game_stats( player )
 		else
 		{
 			player.game_stats.second_innings.score = player.batsman_innings.runs_scored;
-			player.game_stats.total_runs = player.game_stats.first_innings.score + player.game_stats.second_innings.score;
 			player.game_stats.second_innings.wickets_taken = player.bowler_innings.wickets_taken;
 			player.game_stats.second_innings.wickets_fallen = player.batsman_innings.wickets_fallen;
 			player.game_stats.second_innings.wicket_difference = 10 - player.game_stats.second_innings.wickets_fallen;
@@ -493,268 +711,74 @@ function update_game_stats( player )
 		player.game_stats.total_run_outs = player.game_stats.total_run_outs + player.batsman_innings.run_outs;
 		player.game_stats.batted_darts = player.batsman_innings.num_darts;
 	}
-	player.game_stats.total_wicket_difference = player.game_stats.first_innings.wicket_difference + player.game_stats.second_innings.wicket_difference;
-	player.game_stats.total_run_difference = player.game_stats.total_runs - player.game_stats.total_runs_conceded;
 	player.game_stats.total_darts = player.game_stats.bowled_darts + player.game_stats.batted_darts;
 }
 
-function check_scores()
+/* FUNCTION THAT HAPPENS AFTER THE FIRST INNINGS IF THEY HAVE SELECTED TO PLAY TWO INNINGS */
+function next_innings()
 {
-	var player = players.players[0];
-
-	// IF PLAYER HAS BOWLED & BATTED - END OF INNINGS
-	if (player.game_stats.bowled == 1 && player.game_stats.batted == 1) 
-	{
-		players.players[0].game_stats.innings_played = 1;
-		players.players[1].game_stats.innings_played = 1;
-
-		var first_player_total = players.players[0].game_stats.first_innings.score;
-		var second_player_total = players.players[1].game_stats.first_innings.score;
-
-		// IF FIRST PLAYERS SCORE IS BIGGER THAN SECOND PLAYERS SCORE - FIRST PLAYER HAS WON THE INNINGS & GAME
-		if (first_player_total > second_player_total) 
-		{
-			players.players[0].game_stats.first_innings.outcome = 'won';
-			players.players[0].game_stats.first_innings.run_difference = first_player_total - second_player_total;
-			if (players.players[0].game_stats.first_innings.wicket_difference <= 0) 
-			{
-				var method = 'won by ' +  players.players[0].game_stats.first_innings.run_difference + ' runs';
-			}
-			else
-			{
-				var method = 'won by ' + players.players[0].game_stats.first_innings.wicket_difference + ' wickets and ' + players.players[0].game_stats.first_innings.run_difference + ' runs';
-			}
-			
-			players.players[0].game_stats.first_innings.outcome_method = method;
-			players.players[0].game_stats.innings_won = 1;
-			players.players[0].game_stats.game_outcome = 'won';
-
-			players.players[1].game_stats.first_innings.outcome = 'lost';
-			players.players[1].game_stats.first_innings.run_difference = first_player_total - second_player_total;
-			if (players.players[0].game_stats.first_innings.wicket_difference <= 0) 
-			{
-				var method = 'lost by ' +  players.players[0].game_stats.first_innings.run_difference + ' runs';
-			}
-			else
-			{
-				var method = 'lost by ' + players.players[0].game_stats.first_innings.wicket_difference + ' wickets and ' + players.players[0].game_stats.first_innings.run_difference + ' runs';
-			}
-			players.players[1].game_stats.first_innings.outcome_method = method;
-			players.players[1].game_stats.game_outcome = 'lost';
-		}
-		// IF SECOND PLAYERS SCORE IS BIGGER THAN FIRST PLAYERS SCORE - SECOND PLAYER HAS WON THE INNINGS & GAME
-		else if (first_player_total < second_player_total) 
-		{
-			players.players[1].game_stats.first_innings.outcome = 'won';
-			players.players[1].game_stats.first_innings.run_difference = second_player_total - first_player_total;
-			if (players.players[1].game_stats.first_innings.wicket_difference <= 0) 
-			{
-				var method = 'won by ' +  players.players[1].game_stats.first_innings.run_difference + ' runs';
-			}
-			else
-			{
-				var method = 'won by ' + players.players[1].game_stats.first_innings.wicket_difference + ' wickets and ' + players.players[1].game_stats.first_innings.run_difference + ' runs';
-			}
-			players.players[1].game_stats.first_innings.outcome_method = method;
-			players.players[1].game_stats.innings_won = 1;
-			players.players[1].game_stats.game_outcome = 'won';
-
-			players.players[0].game_stats.first_innings.outcome = 'lost';
-			players.players[0].game_stats.first_innings.run_difference = second_player_total - first_player_total;
-			if (players.players[1].game_stats.first_innings.wicket_difference <= 0) 
-			{
-				var method = 'lost by ' +  players.players[1].game_stats.first_innings.run_difference + ' runs';
-			}
-			else
-			{
-				var method = 'lost by ' + players.players[1].game_stats.first_innings.wicket_difference + ' wickets and ' + players.players[1].game_stats.first_innings.run_difference + ' runs';
-			}
-			players.players[0].game_stats.first_innings.outcome_method = method;
-			players.players[0].game_stats.game_outcome = 'lost';
-		}
-		// OTHERWISE THEY SCORED THE SAME - INNINGS & GAME HAS BEEN DRAWN
-		else
-		{
-			players.players[0].game_stats.first_innings.outcome = 'draw';
-			players.players[0].game_stats.first_innings.run_difference = 0;
-			players.players[0].game_stats.game_outcome = 'draw';
-			players.players[1].game_stats.first_innings.outcome = 'draw';
-			players.players[1].game_stats.first_innings.run_difference = 0;
-			players.players[1].game_stats.game_outcome = 'draw';
-		}
-
-		if (player.innings == 1) 
-		{
-			end_innings();
-		}
-		
-	}
-	// IF PLAYER HAS BOWLED TWICE &  BATTED ONCE
-		// else if (player.game_stats.bowled == 2 && player.game_stats.batted == 1) 
-		// {
-		// 	// IF THEIR TOTAL RUNS (FROM TWO INNINGS) IS LESS THAN SECOND PLAYERS TOTAL RUNS (FROM FIRST INNINGS) - END GAME
-		// 	if (player.game_stats.total_runs < players.players[1].game_stats.total_runs) 
-		// 	{
-		// 		end_innings();
-		// 	}
-		// 	// IF IS DOESNT - CHANGE ORDER & PLAYER TYPES
-		// 	else
-		// 	{
-		// 		change_order();
-		// 	}
-		// }
-		// else if (player.game_stats.bowled == 2 && player.game_stats.batted == 2)
-		// {
-		// 	player.game_stats.innings_played = 2;
-		// 	var first_player_total = players.players[0].game_stats.second_innings.score;
-		// 	var second_player_total = players.players[1].game_stats.second_innings.score;
-
-		// 	if (first_player_total > second_player_total) 
-		// 	{
-		// 		players.players[0].game_stats.second_innings.outcome = 'won';
-		// 		players.players[0].game_stats.second_innings.run_difference = first_player_total - second_player_total;
-		// 		players.players[0].game_stats.innings_won = 2;
-		// 		players.players[1].game_stats.second_innings.outcome = 'lost';
-		// 		players.players[1].game_stats.second_innings.run_difference = '-'+first_player_total - second_player_total;
-		// 	}
-		// 	else if (first_player_total < second_player_total) 
-		// 	{
-		// 		players.players[1].game_stats.second_innings.outcome = 'won';
-		// 		players.players[1].game_stats.second_innings.run_difference = second_player_total - first_player_total;
-		// 		players.players[1].game_stats.innings_won = 2;
-		// 		players.players[0].game_stats.second_innings.outcome = 'lost';
-		// 		players.players[0].game_stats.second_innings.run_difference = '-'+second_player_total - first_player_total;
-		// 	}
-		// 	else
-		// 	{
-		// 		players.players[0].game_stats.second_innings.outcome = 'draw';
-		// 		players.players[0].game_stats.second_innings.run_difference = 0;
-		// 		players.players[1].game_stats.second_innings.outcome = 'draw';
-		// 		players.players[1].game_stats.second_innings.run_difference = 0;
-		// 	}
-
-		// 	for (var i = 0; i < players.players.length; i++) 
-		// 	{
-		// 		var first_outcome = players.players[i].game_stats.first_innings.outcome;
-		// 		var second_outcome = players.players[i].game_stats.second_innings.outcome;
-		// 		if (first_outcome == 'won') 
-		// 		{
-		// 			if (second_outcome == 'won' || second_outcome == 'draw') 
-		// 			{
-		// 				players.players[i].game_stats.game_outcome = 'won';
-		// 			}
-		// 			else
-		// 			{
-		// 				players.players[i].game_stats.game_outcome = 'draw';
-		// 			}
-		// 		}
-		// 		else if (first_outcome == 'lost')
-		// 		{
-		// 			if (second_outcome == 'lost' || second_outcome == 'draw') 
-		// 			{
-		// 				players.players[i].game_stats.game_outcome = 'lost';
-		// 			}
-		// 			else
-		// 			{
-		// 				players.players[i].game_stats.game_outcome = 'draw';
-		// 			}
-		// 		}
-		// 		else if (first_outcome == 'draw') 
-		// 		{
-		// 			if (second_outcome == 'won') 
-		// 			{
-		// 				players.players[i].game_stats.game_outcome = 'won';
-		// 			}
-		// 			else if (second_outcome == 'lost')
-		// 			{
-		// 				players.players[i].game_stats.game_outcome = 'lost';
-		// 			}
-		// 			else 
-		// 			{
-		// 				players.players[i].game_stats.game_outcome = 'draw';
-		// 			}
-		// 		}
-		// 	}
-		// 	end_innings();
-		// }
-	else
-	{
-		change_order();
-	}
-}
-
-// FUNCTION THAT HAPPENS AFTER INNINGS HAS BEEN WON
-function end_innings()
-{
-	var innings_selected = players.players[0].game_stats.innings_selected;
-	var innings_played = players.players[0].game_stats.innings_played;
-
-	var end_game_button = document.createElement('button');
 	var next_innings_button = document.createElement('button');
-	end_game_button.textContent = 'finish game';
 	next_innings_button.textContent = 'start next innings';
-
 	$('.game').hide();
 	$('.board').hide();
+	$('.page').append(next_innings_button);
 
-	// if (innings_played == innings_selected) 
-	// {
-	// 	$('.page').append(end_game_button);
-	// }
-	// else
-	// {
-	// 	$('.page').append(next_innings_button);
-	// }
-
-	$('.page').append(end_game_button);
-
-	console.log(players.players[0].game_stats.innings_won);
-	console.log(players.players[1].game_stats.innings_won);
-	end_game_button.onclick = function()
+	next_innings_button.onclick = function()
 	{
-			// if (innings_played == 2) 
-			// {
-			// 	players.players[0].game_stats.total_run_difference = players.players[0].game_stats.total_run_difference + players.players[0].game_stats.second_innings.run_difference;
-			// 	players.players[1].game_stats.total_run_difference = players.players[0].game_stats.total_run_difference + players.players[1].game_stats.second_innings.run_difference;
-			// 	update_inning_db(players.players[0], players.players[0].game_stats.second_innings.outcome);
-			// 	update_inning_db(players.players[1], players.players[1].game_stats.second_innings.outcome);
-			// }
-			// else 
-			// {
-			// 	players.players[0].game_stats.total_run_difference = players.players[0].game_stats.first_innings.run_difference;
-			// 	players.players[1].game_stats.total_run_difference = players.players[1].game_stats.first_innings.run_difference;
-			// 	update_inning_db(players.players[0], players.players[0].game_stats.first_innings.outcome);
-			// 	update_inning_db(players.players[1], players.players[1].game_stats.first_innings.outcome);
-			// }
 		players.players[0].game_stats.total_run_difference = players.players[0].game_stats.first_innings.run_difference;
 		players.players[1].game_stats.total_run_difference = players.players[1].game_stats.first_innings.run_difference;
 		update_inning_db(players.players[0], players.players[0].game_stats.first_innings.outcome);
 		update_inning_db(players.players[1], players.players[1].game_stats.first_innings.outcome);
 
+		change_order();
+		for (var i = 0; i < players.players.length; i++) 
+		{
+			reset_inning_stats(players.players[i])
+		}
+		$(this).remove();
+		$('.game').show();
+		$('.board').show();
+	}
+
+}
+
+/* FUNCTION THAT HAPPENS AFTER INNINGS SELECTED HAVE BEEN PLAYER */
+function end_game()
+{
+	var innings_selected = players.players[0].game_stats.innings_selected;
+	var innings_played = players.players[0].game_stats.innings_played;
+
+	var end_game_button = document.createElement('button');
+	end_game_button.textContent = 'finish game';
+
+	$('.game').hide();
+	$('.board').hide();
+	$('.page').append(end_game_button);
+
+	end_game_button.onclick = function()
+	{
+		if (innings_played == 2) 
+		{
+			players.players[0].game_stats.total_run_difference = players.players[0].game_stats.total_run_difference + players.players[0].game_stats.second_innings.run_difference;
+			players.players[1].game_stats.total_run_difference = players.players[0].game_stats.total_run_difference + players.players[1].game_stats.second_innings.run_difference;
+			update_inning_db(players.players[0], players.players[0].game_stats.second_innings.outcome);
+			update_inning_db(players.players[1], players.players[1].game_stats.second_innings.outcome);
+		}
+		else 
+		{
+			players.players[0].game_stats.total_run_difference = players.players[0].game_stats.first_innings.run_difference;
+			players.players[1].game_stats.total_run_difference = players.players[1].game_stats.first_innings.run_difference;
+			update_inning_db(players.players[0], players.players[0].game_stats.first_innings.outcome);
+			update_inning_db(players.players[1], players.players[1].game_stats.first_innings.outcome);
+		}
+
 		update_game_db(players.players[0], players.players[0].game_stats.game_outcome);
 		update_game_db(players.players[1], players.players[1].game_stats.game_outcome);
 		location.replace('account.php');
 	}
-
-	// next_innings_button.onclick = function()
-	// {
-	// 	players.players[0].game_stats.total_run_difference = players.players[0].game_stats.first_innings.run_difference;
-	// 	players.players[1].game_stats.total_run_difference = players.players[1].game_stats.first_innings.run_difference;
-	// 	update_inning_db(players.players[0], players.players[0].game_stats.first_innings.outcome);
-	// 	update_inning_db(players.players[1], players.players[1].game_stats.first_innings.outcome);
-	// 	for (var i = 0; i < players.players.length; i++) 
-	// 	{
-	// 		reset_inning_stats(players.players[i]);
-	// 		change_order();
-	// 	}
-	// 	$(this).remove();
-	// 	$('.game').show();
-	// 	$('.board').show();
-	// 	$('#firstInningsScore').text(players.players[0].game_stats.first_innings.score);
-	// 	$('#oppScore').text(players.players[1].game_stats.first_innings.score);
-	// }
 }
 
+/* FUNCTION TO ADD THE INNING STATS TO THE DB */
 function update_inning_db( player, outcome )
 {
 	var user_name = localStorage['user'];
@@ -797,6 +821,7 @@ function update_inning_db( player, outcome )
 	xmlhttp.send();
 }
 
+/* FUNCTION TO ADD THE GAME STATS TO THE DB */
 function update_game_db( player, outcome )
 {
 	var user_name = localStorage['user'];
@@ -839,7 +864,7 @@ function update_game_db( player, outcome )
 	xmlhttp.send();
 }
 
-// USED IN changeOrder funtion TO MOVE ITEMS IN AN ARRAY
+/* USED IN CHANGE_ORDER TO MOVE ITEMS IN AN ARRAY */
 function arraymove(arr, fromIndex, toIndex) 
 {
     var element = arr[fromIndex];
@@ -847,12 +872,11 @@ function arraymove(arr, fromIndex, toIndex)
     arr.splice(toIndex, 0, element);
 }
 
+/* FUNCTION TO CHANGE THE ORDER OF THROW - SET FIRST PLAYER AS BOWLER, SECOND AS BATSMAN */
 function change_order()
 {
-
-	$(oppScoreSection).text(players.players[1].game_stats.first_innings.score);
-	$(gameScoreSection).text('');
-	$(gameWicketsSection).text('');
+	$(gameScoreSection).text('0');
+	$(gameWicketsSection).text('0');
 
 	for (var i = 0; i < wicketSection.length; i++) 
 	{
@@ -895,9 +919,22 @@ function change_order()
 	$(secondSection).text('');
 	$(thirdSection).text('');
 	$(totalSection).text('');
+
+	if (players.players[0].game_stats.innings_played == 1)
+	{
+		$(firstInningsScore).text(players.players[0].game_stats.first_innings.score);
+		$(oppScoreSection).text(players.players[1].game_stats.first_innings.score);
+	}
+	else
+	{
+		$(oppScoreSection).text(players.players[0].batsman_innings.runs_scored);
+	}
+	
+
 	dart = 0;
 }
 
+/* FUNCTION TO RESET THE INNING STATS FOR EACH PLAYER */
 function reset_inning_stats( player )
 {
 // BOWLER
@@ -1024,7 +1061,7 @@ function reset_inning_stats( player )
 	player.batsman_innings.total_scored = 0;
 }
 
-//  UNDO FUNCTION
+/*  UNDO FUNCTION */
 var undo = $('#undo_score');
 undo.on('click', function()
 {
@@ -1057,7 +1094,7 @@ undo.on('click', function()
 	}
 })
 
-// DISPLAYS THE PREVIOUS PLAYERS LAST TURN
+/* DISPLAYS THE PREVIOUS PLAYERS LAST TURN */
 function undo_change_player(player)
 {
 	if (player.player_type == 'bowler') 
@@ -1313,4 +1350,9 @@ function playerGo()
 	$(thirdSection).text('');
 	$(totalSection).text('');
 };
+
+
+
+
+
 

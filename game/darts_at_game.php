@@ -61,7 +61,7 @@ $game = $_SESSION['game'];
 
 	.inner_scoreboard
 	{
-		width: 25%;
+		width: 33.3%;
 		height: 100px;
 		float: left;
 		background-color: #333;
@@ -144,7 +144,6 @@ $game = $_SESSION['game'];
 		<div class="inner_scoreboard"><p id="firstSection" style="color:#fff;"></p></div>
 		<div class="inner_scoreboard"><p id="secondSection" style="color:#fff;"></p></div>
 		<div class="inner_scoreboard"><p id="thirdSection" style="color:#fff;"></p></div>
-		<div class="inner_scoreboard"><p id="totalSection" style="color:#fff;"></p></div>
 	</div>
 </div><!-- CLOSE DIV WITH CLASS GAME -->
 
@@ -358,7 +357,7 @@ $game = $_SESSION['game'];
 <script type="text/javascript">
 	
 	var darts = Number(localStorage['darts']);
-	var target_num = Number(localStorage['target']);
+	var target = localStorage['target'];
 	var player_name = '<?=$user_username;?>';
 
 	// GOES BACK TO ACCOUNT OF USER IF YOU QUIT THE GAME
@@ -372,16 +371,21 @@ $game = $_SESSION['game'];
 	})
 
 	$('#darts_left').text(darts);
-	$('#target_num').text(target_num);
+	$('#target_num').text(target);
 
 	var players = [];
+
+	if (target == 'bullseye') 
+	{
+		target = 25;
+	}
 
 	function create_player(name, target, darts)
 	{
 		var player = 
 		{
 			name: name,
-			target_num: target,
+			target_num: Number(target),
 			darts_selected: darts,
 			game: 
 			{
@@ -411,7 +415,7 @@ $game = $_SESSION['game'];
 		$('#missed').text(player.game.darts_missed);
 	}
 
-	create_player(player_name, target_num, darts);
+	create_player(player_name, target, darts);
 
 	$.getScript('game/darts_at_game.js');
 
