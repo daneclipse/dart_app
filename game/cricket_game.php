@@ -464,6 +464,7 @@ else if (isset($_SESSION['opponent_guest']))
 				bullseyes: 0,
 				wides: 0,
 				runs_given: [],
+				total_given: 0,
 				darts_missed: 0,
 				num_darts: 0,
 				runs_conceded: 0
@@ -545,6 +546,7 @@ else if (isset($_SESSION['opponent_guest']))
 				{
 					score: 0,
 					conceded: 0,
+					given: 0,
 					run_difference: 0,
 					wickets_taken: 0,
 					wickets_fallen: 0,
@@ -556,6 +558,7 @@ else if (isset($_SESSION['opponent_guest']))
 				{
 					score: 0,
 					conceded: 0,
+					given: 0,
 					run_difference: 0,
 					wickets_taken: 0,
 					wickets_fallen: 0,
@@ -572,6 +575,7 @@ else if (isset($_SESSION['opponent_guest']))
 				total_outer_bulls: 0,
 				total_bullseyes: 0,
 				total_wides: 0,
+				total_runs_given: 0,
 				total_over: 0,
 				total_under: 0,
 				total_run_outs: 0,

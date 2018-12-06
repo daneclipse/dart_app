@@ -88,10 +88,10 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST')
 							$won = $row['game_outcome'];
 							if ($won == 'won') 
 							{
-								$games_won++;
+								$x01_won++;
 							}
 						}
-						$percent = ($games_won / $games_played) * 100;
+						$percent = ($x01_won / $games_played) * 100;
 						$win_percent = number_format($percent, 2);
 						echo
 						'<table>
@@ -99,7 +99,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST')
 								<th>Games Played</th><th>Win %</th><th>Games Won</th>
 							<tr>
 							<tr>
-								<td>' . $games_played . '</td><td>' . $win_percent . '</td><td>' . $games_won . '</td>
+								<td>' . $games_played . '</td><td>' . $win_percent . '</td><td>' . $x01_won . '</td>
 							</tr>
 						</table>';
 
@@ -127,15 +127,15 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST')
 							$won = $row['game_outcome'];
 							if ($won == 'won') 
 							{
-								$games_won++;
+								$cricket_won++;
 							}
 						}
-						$percent = ($games_won / $games_played) * 100;
+						$percent = ($cricket_won / $games_played) * 100;
 						$win_percent = number_format($percent, 2);
 						echo
 						'<table class="user_stats_table">
 						<tr><th>Games Played</th><th>Win %</th><th>Games Won</th><tr>
-						<tr><td>' . $games_played . '</td><td>' . $win_percent . '</td><td>' . $games_won . '</td></tr>
+						<tr><td>' . $games_played . '</td><td>' . $win_percent . '</td><td>' . $cricket_won . '</td></tr>
 						</table>';
 
 					}

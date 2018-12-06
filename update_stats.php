@@ -19,9 +19,6 @@ $game = $_SESSION['game'];
 // 	$opponent = 'none';
 // }
 
-
-
-
 if ($game == 'x01') 
 {
 	$type = $_GET['type'];
@@ -120,33 +117,34 @@ else if ($game == 'cricket')
 		if ($type == 'inning') 
 		{
 			$opp = $_GET['opp'];
+			$inning_num = $_GET['inning_num'];
 			$outcome = $_GET['outcome'];
 			$method = $_GET['method'];
 			$wickets = $_GET['wickets'];
 			$outer_bulls = $_GET['outer_bulls'];
 			$bullseyes = $_GET['bullseyes'];
 			$wides = $_GET['wides'];
+			$given = $_GET['given'];
 			$conceded = $_GET['conceded'];
 			$runs = $_GET['runs'];
+			$extras = $_GET['extras'];
 			$over = $_GET['over'];
 			$under = $_GET['under'];
 			$run_outs = $_GET['run_outs'];
 
-			if ($wickets == 10) 
+			if ($wickets == 0) 
 			{
 				$score = 'all out for ' . $_GET['runs'];
-				$wickets_left = 0;
 			}
 			else
 			{
 				$score = $_GET['runs'] . ' for ' . $wickets;
-				$wickets_left = 10 - $wickets;
 			}
 
 			$bowled = $_GET['bowled_darts'];
 			$batted = $_GET['batted_darts'];
 
-			$insert = "INSERT INTO cricket_innings (game_date, username, opponent, outcome, outcome_method, wickets_left, outer_bulls, bullseyes, wides, conceded, runs_scored, over_forty_one, under_forty_one, run_outs, innings_score, bowled_darts, batted_darts) VALUES( NOW(), '$player', '$opp', '$outcome', '$method', '$wickets_left', '$outer_bulls', '$bullseyes', '$wides', '$conceded', '$runs', '$over', '$under', '$run_outs', '$score', '$bowled', '$batted')";
+			$insert = "INSERT INTO cricket_innings (game_date, username, opponent, inning_num, outcome, outcome_method, outer_bulls, bullseyes, wides, runs_given, conceded, runs_scored, extra_runs, over_forty_one, under_forty_one, run_outs, innings_score, bowled_darts, batted_darts) VALUES( NOW(), '$player', '$opp', '$inning_num', '$outcome', '$method', '$outer_bulls', '$bullseyes', '$wides', '$given', '$conceded', '$runs', '$extras', '$over', '$under', '$run_outs', '$score', '$bowled', '$batted')";
 			$insert_query = mysqli_query($dbc, $insert);
 			$data_inserted = mysqli_affected_rows($dbc);
 			if ($data_inserted > 0) 
