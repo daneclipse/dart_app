@@ -2,11 +2,9 @@
 include('connection.php');
 
 session_start();
+
 $user_username = $_SESSION['username'];
 $game = $_SESSION['game'];
-
-unset($_SESSION['opponent_guest']);
-unset($_SESSION['opponent_user']);
 
 ?>
 
@@ -30,7 +28,7 @@ unset($_SESSION['opponent_user']);
 					echo 'Opponent - ' . $_SESSION['opponent_guest'];
 				}
 				// IF LOGGING IN FORM HAS BEEN SUBMITTED
-				else
+				else if (isset($_POST['opp_user']))
 				{
 					$opp_username = $_POST['opp_user'];
 					$opp_password = $_POST['opp_pass'];
@@ -47,8 +45,16 @@ unset($_SESSION['opponent_user']);
 						if ($db_password == $opp_password) 
 						{
 							unset($_SESSION['opponent_guest']);
-							$_SESSION['opponent_user'] = $opp_username;
-							echo 'Opponent - ' . $_SESSION['opponent_user'];
+							if ($opp_username == $user_username) 
+							{
+								echo 'user already in use, log in as another user';
+								unset($_SESSION['opponent_user']);
+							}
+							else
+							{
+								$_SESSION['opponent_user'] = $opp_username;
+								echo 'Opponent - ' . $_SESSION['opponent_user'];
+							}
 						}
 						else
 						{
@@ -66,8 +72,8 @@ unset($_SESSION['opponent_user']);
 			{
 				unset($_SESSION['opponent_user']);
 				unset($_SESSION['opponent_guest']);
+				unset($_SESSION['REQUEST_METHOD']);
 			}
-			// var_dump($_SESSION);
 		?>
 	</div>
 </div>
@@ -95,7 +101,30 @@ unset($_SESSION['opponent_user']);
 <script src="https://code.jquery.com/jquery-3.3.1.min.js" integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8=" crossorigin="anonymous"></script>
 <script>
 
-var start_button = '<a href="game.php" class="button green_button">start game</a>';
+var opp_options = $('.opp_option');
+
+if (localStorage['opponent'] == 'none') 
+{		
+	$(opp_options[0]).removeClass('opaque');
+	$(opp_options[1]).addClass('opaque');
+	$(opp_options[2]).addClass('opaque');
+
+}
+else if (localStorage['opponent'] == 'guest') 
+{
+	$(opp_options[0]).addClass('opaque');
+	$(opp_options[1]).removeClass('opaque');
+	$(opp_options[2]).addClass('opaque');
+}
+else if (localStorage['opponent'] == 'user') 
+{
+	$(opp_options[0]).addClass('opaque');
+	$(opp_options[1]).addClass('opaque');
+	$(opp_options[2]).removeClass('opaque');
+}
+
+
+var start_button = '<a href="game.php" class="button green_button start_button">start game</a>';
 // SETUP GAME
 var opp_options = $('.opp_option');
 opp_options.on('click', function()
@@ -111,6 +140,7 @@ opp_options.on('click', function()
 	{
 		localStorage['opponent'] = 'none';
 		$('.opponent').empty();
+		location.replace('game_setup.php?game=x01');
 	}
 	else if (text == 'v guest')
 	{
@@ -132,8 +162,18 @@ opp_options.on('click', function()
 	// console.log(opponent);
 })
 
-var user_form = '<form action="game_setup.php?game=x01" method="post" class="opponent"><input type="text" name="opp_user" placeholder="username"><input type="password" name="opp_pass" placeholder="password"><input type="submit" value="Login" class="button green_button u_login"></form>';
-var guest_name = '<form action="game_setup.php?game=x01" method="post" class="opponent"><input type="text" name="guest_name" placeholder="enter name"><input type="submit" value="Enter name" class="button green_button g_name"></form>';
+var user_form = 
+'<form action="game_setup.php?game=x01" method="post" class="opponent">'+
+	'<input type="text" name="opp_user" placeholder="username">'+
+	'<input type="password" name="opp_pass" placeholder="password">'+
+	'<input type="submit" value="Login" class="button green_button u_login">'+
+'</form>';
+
+var guest_name = 
+'<form action="game_setup.php?game=x01" method="post" class="opponent">'+
+	'<input type="text" name="guest_name" placeholder="enter name">'+
+	'<input type="submit" value="Enter name" class="button green_button g_name">'+
+'</form>';
 
 var targets = $('.target_option');
 targets.on('click', function()
@@ -165,7 +205,14 @@ legs.on('click', function()
 	}
 	else
 	{
-		$('.game_setup').append(start_button);
+		if ($('.start_button').length > 0) 
+		{
+			return;
+		}
+		else
+		{
+			$('.game_setup').append(start_button);
+		}
 	}
 })
 

@@ -13,6 +13,10 @@ else if (isset($_SESSION['opponent_guest']))
 {
 	$opponent = $_SESSION['opponent_guest'];
 }
+else
+{
+	header('game_setup.php?game=cricket');
+}
 
 ?>
 

@@ -909,57 +909,6 @@ function set_game_outcome()
 	}
 }
 
-/* FUNCTION TO UPDATE EVERY PLAYERS GAME STATS AFTER EACH TURN */
-// function update_game_stats( player )
-// {
-// 	if (player.player_type == 'bowler') 
-// 	{
-// 		if (player.game_stats.bowled == 1) 
-// 		{
-// 			player.game_stats.first_innings.wickets_taken = player.bowler_innings.wickets_taken;
-// 			player.game_stats.first_innings.wickets_fallen = player.batsman_innings.wickets_fallen;
-// 			player.game_stats.first_innings.wicket_difference = 10 - player.game_stats.first_innings.wickets_fallen;
-// 			player.game_stats.first_innings.conceded = player.bowler_innings.runs_conceded;
-// 		}
-// 		else
-// 		{
-// 			player.game_stats.second_innings.wickets_taken = player.bowler_innings.wickets_taken;
-// 			player.game_stats.second_innings.wickets_fallen = player.batsman_innings.wickets_fallen;
-// 			player.game_stats.second_innings.wicket_difference = 10 - player.game_stats.second_innings.wickets_fallen;
-// 			player.game_stats.second_innings.conceded = player.bowler_innings.runs_conceded;
-
-// 		}
-// 		player.game_stats.total_outer_bulls = player.game_stats.total_outer_bulls + player.bowler_innings.outer_bulls;
-// 		player.game_stats.total_bullseyes = player.game_stats.total_bullseyes + player.bowler_innings.bullseyes;
-// 		player.game_stats.total_wides = player.game_stats.total_wides + player.bowler_innings.wides;
-// 		player.game_stats.bowled_darts = player.bowler_innings.num_darts;
-// 		player.game_stats.total_runs_conceded = player.game_stats.first_innings.conceded + player.game_stats.second_innings.conceded;
-// 	}
-// 	else if (player.player_type == 'batsman')
-// 	{
-// 		if (player.game_stats.batted == 1) 
-// 		{
-// 			player.game_stats.first_innings.score = player.batsman_innings.runs_scored;
-// 			player.game_stats.first_innings.wickets_taken = player.bowler_innings.wickets_taken;
-// 			player.game_stats.first_innings.wickets_fallen = player.batsman_innings.wickets_fallen;
-// 			player.game_stats.first_innings.wicket_difference = 10 - player.game_stats.first_innings.wickets_fallen;
-// 		}
-// 		else
-// 		{
-// 			player.game_stats.second_innings.score = player.batsman_innings.runs_scored;
-// 			player.game_stats.second_innings.wickets_taken = player.bowler_innings.wickets_taken;
-// 			player.game_stats.second_innings.wickets_fallen = player.batsman_innings.wickets_fallen;
-// 			player.game_stats.second_innings.wicket_difference = 10 - player.game_stats.second_innings.wickets_fallen;
-// 		}
-// 		player.game_stats.total_runs = player.game_stats.total_runs + player.batsman_innings.runs_scored;
-// 		player.game_stats.total_over = player.game_stats.total_over + player.batsman_innings.over_forty_one;
-// 		player.game_stats.total_under = player.game_stats.total_under + player.batsman_innings.under_forty_one;
-// 		player.game_stats.total_run_outs = player.game_stats.total_run_outs + player.batsman_innings.run_outs;
-// 		player.game_stats.batted_darts = player.batsman_innings.num_darts;
-// 	}
-// 	player.game_stats.total_darts = player.game_stats.bowled_darts + player.game_stats.batted_darts;
-// }
-
 /* FUNCTION THAT HAPPENS AFTER THE FIRST INNINGS IF THEY HAVE SELECTED TO PLAY TWO INNINGS */
 function next_innings()
 {
@@ -988,7 +937,6 @@ function next_innings()
 		$('.board').show();
 		$('.game_buttons').show();
 	}
-
 }
 
 /* FUNCTION THAT HAPPENS AFTER INNINGS SELECTED HAVE BEEN PLAYER */
@@ -1054,20 +1002,6 @@ function update_inning_db( player, outcome )
 			var given = players.players[1].game_stats.first_innings.given;
 		}
 
-		// player.game_stats.total_runs = player.game_stats.first_innings.score;
-		// player.game_stats.total_runs_conceded = player.game_stats.first_innings.conceded;
-		// player.game_stats.total_run_difference = player.game_stats.total_runs - player.game_stats.total_runs_conceded;
-		// player.game_stats.total_wickets_taken = player.game_stats.first_innings.wickets_taken;
-		// player.game_stats.total_wickets_left = player.game_stats.first_innings.wickets_left;
-		// player.game_stats.total_wicket_difference = player.game_stats.total_wickets_taken - player.game_stats.total_wickets_left;
-		// player.game_stats.total_outer_bulls = player.bowler_innings.outer_bulls;
-		// player.game_stats.total_bullseyes = player.bowler_innings.bullseyes;
-		// player.game_stats.total_wides = player.bowler_innings.wides;
-		// player.game_stats.total_runs_given = player.bowler_innings.total_given;
-		// player.game_stats.total_over = player.batsman_innings.over_forty_one;
-		// player.game_stats.total_under = player.batsman_innings.under_forty_one;
-		// player.game_stats.total_run_outs = player.batsman_innings.run_outs;
-
 		xmlhttp.open('GET', 'update_stats.php?name='+player.name+
 			'&type=inning'+
 			'&opp='+opp+
@@ -1116,7 +1050,6 @@ function update_inning_db( player, outcome )
 			, true);
 		xmlhttp.send();
 	}
-
 }
 
 /* FUNCTION TO ADD THE GAME STATS TO THE DB */
@@ -1186,6 +1119,7 @@ function change_order()
 	{
 		$(wicketSection[i]).css('opacity', '1');
 	}
+	
 	for (var i = 0; i < wicketScoreSection.length; i++) 
 	{
 		$(wicketScoreSection[i]).css('opacity', '1');

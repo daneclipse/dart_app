@@ -83,10 +83,28 @@ else
 		float: right;
 	}
 
+	.checkout_area
+	{
+		width: 60%;
+		height: 100px;
+		background: #333;
+		border: 2px solid #f7f5fa;
+		margin: 0 auto;
+		margin-bottom: 20px;
+	}
+
+	.checkout_area p
+	{
+		color: #f7f5fa;
+		font-size: 30px;
+		line-height: 100px;
+	}
+
 	.scoreboard
 	{
 		width: 100%;
 		height: 150px;
+		margin-bottom: 20px;
 	}
 
 	.inner_scoreboard
@@ -542,7 +560,9 @@ else
 				localStorage.players = JSON.stringify(players.players);
 				playerOrder.remove();
 				$(this).remove();
+				$.getScript('game/x01_checkout.js');
 				$.getScript('game/x01_game.js');
+
 			}
 		}
 	}
@@ -565,7 +585,9 @@ else
 			$('.board').show();
 			$('.game_buttons').show();
 			players.players[0].throw_first = true;
+			$.getScript('game/x01_checkout.js');
 			$.getScript('game/x01_game.js');
+
 		}
 	}
 

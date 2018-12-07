@@ -40,7 +40,7 @@ $game = $_SESSION['game'];
 <script src="https://code.jquery.com/jquery-3.3.1.min.js" integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8=" crossorigin="anonymous"></script>
 <script>
 
-var start_button = '<a href="game.php" class="button green_button">start game</a>';
+var start_button = '<a href="game.php" class="button green_button start_button">start game</a>';
 // SETUP GAME
 
 var darts = $('.darts_option');
@@ -69,7 +69,14 @@ darts.on('click', function()
 
 		if (localStorage.hasOwnProperty('darts') == true && localStorage.hasOwnProperty('target') == true) 
 		{
-			$('.game_setup').append(start_button);	
+			if ($('.start_button').length > 0) 
+			{
+				return;
+			}
+			else
+			{
+				$('.game_setup').append(start_button);
+			}
 		}
 	})
 })

@@ -86,6 +86,98 @@ if (players.players.length > 1)
 	dimPlayer( players.players[1] );
 }
 
+function check_checkout(dart_num, player)
+{
+	$('.checkout_area').remove();
+	var target = player.leg_stats.target_left;
+	if (target <= 170) 
+	{
+		if (target >= 111) 
+		{
+			var arr = three_dart_checkout;
+			create_checkout_area(arr, player, target);
+		}
+		else if (target > 50 && target <= 110)
+		{
+			if (dart_num == 1) 
+			{
+				var arr = two_dart_checkout;
+			}
+			else
+			{
+				var arr = three_dart_checkout;
+			}
+			create_checkout_area(arr, player, target);
+		}
+		else if (target <= 50)
+		{
+			if (dart_num == 2) 
+			{
+				var arr = one_dart_checkout;
+			}
+			else
+			{
+				var arr = two_dart_checkout;
+			}
+			create_checkout_area(arr, player, target);
+		}
+	}
+}
+
+function create_checkout_area(arr, player, target)
+{
+	var checkout_area = document.createElement('div');
+	var checkout = document.createElement('p');
+
+	$(checkout_area).addClass('checkout_area');
+
+	for (var i = 0; i < arr.length; i++) 
+	{
+		if (target == arr[i].score) 
+		{
+			$(checkout).text(arr[i].checkout);
+		}
+	}
+	$(checkout_area).append(checkout);
+	$('.game').prepend(checkout_area);
+	flash_segment();
+}
+
+function flash_segment()
+{
+	var checkout_area = $('.checkout_area');
+	var number = checkout_area.text().split(' ', 1)[0];
+	if (number != undefined) 
+	{
+		var segment = document.getElementById(number);
+		var flash = setInterval(function(){
+			$(segment).fadeOut(500, function(){
+				$(segment).fadeIn(500);
+			})
+		}, 100)
+		segment.onclick = function(){
+			clearInterval(flash);
+			$(this).fadeIn(100);
+		}
+		$('.single').click(function(){
+			clearInterval(flash);
+		})
+		$('.double').click(function(){
+			clearInterval(flash);
+		})
+		$('.treble').click(function(){
+			clearInterval(flash);
+		})
+		$('.board').click(function(){
+			clearInterval(flash);
+		})
+		$('#undo_score').click(function(){
+			clearInterval(flash);
+		})
+	}
+}
+
+check_checkout(0, players.players[0]);
 
 // WHEN AREAS OF THE DART BOARD ARE CLICKED (SINGLE, DOUBLE, TREBLE, BOARD(MISS))
 single.on('click', function(e)
@@ -244,6 +336,7 @@ function scorer( player, score, text )
 			bust(player, 3);
 		}
 	}
+	check_checkout(dart, player);
 }
 
 function scoreFirstDart( player, score, text )
@@ -511,6 +604,7 @@ undo.on('click', function()
 			currentPlayer.targetSection.textContent = currentPlayer.leg_stats.target_left;
 			// checkCheckout(0, currentPlayer);
 			dart = 3;
+			check_checkout(dart, currentPlayer);
 		}
 		else if (dart == 2)
 		{
@@ -526,6 +620,7 @@ undo.on('click', function()
 			currentPlayer.targetSection.textContent = currentPlayer.leg_stats.target_left;
 			// checkCheckout(1, currentPlayer);
 			dart = 1;
+			check_checkout(dart, currentPlayer);
 		}
 		else
 		{
@@ -556,9 +651,11 @@ undo.on('click', function()
 			prevPlayer.secondSection.textContent = prevPlayer.leg_stats.scores_text[prevPlayer.leg_stats.scores_text.length - 1];
 			prevPlayer.totalSection.textContent = prevPlayer.leg_stats.turn_score;
 			prevPlayer.targetSection.textContent = prevPlayer.leg_stats.target_left;
-			// checkCheckout(2, prevPlayer);
+			
 			dart = 2;
+			check_checkout(dart, prevPlayer);
 		}
+
 	}
 })
 

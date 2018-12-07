@@ -41,7 +41,6 @@ else
 					<th>Opponent</th>
 					<th>Outcome</th>
 					<th>Outcome Method</th>
-					<th>Wickets Left</th>
 					<th>One Wickets</th>
 					<th>Two Wickets</th>
 					<th>Wides</th>
@@ -59,7 +58,6 @@ else
 				$opp = $row['opponent'];
 				$outcome = $row['outcome'];
 				$outcome_method = $row['outcome_method'];
-				$wickets_left = $row['wickets_left'];
 				$outer_bulls = $row['outer_bulls'];
 				$bullseyes = $row['bullseyes'];
 				$wides = $row['wides'];
@@ -83,7 +81,6 @@ else
 						echo '<td class="red_button">' . $outcome . '</td>';
 					}
 					echo '<td>' . $outcome_method . '</td>
-					<td>' . $wickets_left . '</td>
 					<td>' . $outer_bulls . '</td>
 					<td>' . $bullseyes . '<t/d>
 					<td>' . $wides . '</td>
@@ -93,7 +90,6 @@ else
 					<td>' . $under_forty_one . '</td>
 					<td>' . $run_outs . '</td>
 					<td>' . $innings_score . '</td>';
-
 			}
 			echo '</tr></table>';
 		}
