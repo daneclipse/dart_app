@@ -134,8 +134,12 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST')
 						$win_percent = number_format($percent, 2);
 						echo
 						'<table class="user_stats_table">
-						<tr><th>Games Played</th><th>Win %</th><th>Games Won</th><tr>
-						<tr><td>' . $games_played . '</td><td>' . $win_percent . '</td><td>' . $cricket_won . '</td></tr>
+							<tr>
+								<th>Games Played</th><th>Win %</th><th>Games Won</th>
+							<tr>
+							<tr>
+								<td>' . $games_played . '</td><td>' . $win_percent . '</td><td>' . $cricket_won . '</td>
+							</tr>
 						</table>';
 
 					}
@@ -143,8 +147,12 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST')
 					{
 						echo
 						'<table class="user_stats_table">
-						<tr><th>Games Played</th><th>Win %</th><th>Games Won</th><tr>
-						<tr><td>0</td><td>0</td><td>0</td></tr>
+							<tr>
+								<th>Games Played</th><th>Win %</th><th>Games Won</th>
+							<tr>
+							<tr>
+								<td>0</td><td>0</td><td>0</td>
+							</tr>
 						</table>';
 					}
 				?>
@@ -211,12 +219,58 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST')
 					{
 						echo
 						'<table class="user_stats_table">
-						<tr><th>Games Played</th><th>Most Frequent Target</th><th>Highest Points Tally</th><tr>
-						<tr><td>0</td><td>0</td><td>0</td></tr>
+							<tr>
+								<th>Games Played</th><th>Most Frequent Target</th><th>Highest Points Tally</th>
+							<tr>
+							<tr>
+								<td>0</td><td>0</td><td>0</td>
+							</tr>
 						</table>';
 					}
 				?>
 				<a href="stats.php?stats=darts_at&type=game&page=1" class="button green_button">view stats</a>
+			</div><!-- CLOSE DIV FOR DARTS AT STATS -->
+
+			<div class="user_stats" id="darts_at_stats">
+				<h2>ROUND THE WORLD STATS</h2>
+				<?php
+
+					$select = "SELECT * FROM rtw_overall WHERE username = '$user_username'";
+					$select_query = mysqli_query($dbc, $select);
+					$select_rows = mysqli_num_rows($select_query);
+					if ($select_rows > 0) 
+					{
+						while($r = mysqli_fetch_array($select_query))
+						{
+							$games_played = $r['games_played'];
+							$best_game = $r['best_game'];
+							$target_percent = $r['target_percent'];
+						}
+
+						echo
+						'<table>
+							<tr>
+								<th>Games Played</th><th>Target Hit %</th><th>Best Game</th>
+							<tr>
+							<tr>
+								<td>' . $games_played . '</td><td>' . $target_percent . '</td><td>' . $best_game . ' darts</td>
+							</tr>
+						</table>';
+					}
+					else
+					{
+						echo
+						'<table class="user_stats_table">
+							<tr>
+								<th>Games Played</th>Target Hit %<th></th><th>Best Game</th>
+							<tr>
+							<tr>
+								<td>0</td><td>0</td><td>0</td>
+							</tr>
+						</table>';
+					}
+				?>
+				<a href="stats.php?stats=rtw&page=1" class="button green_button">view stats</a>
 			</div><!-- CLOSE DIV FOR DARTS AT STATS -->
 
 		</div>
@@ -270,9 +324,9 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST')
 
  	var darts_at_info = '<p>\'Darts at\' is very simple game where you choose how many darts you want to throw at a specified target. The aim of the game is to get the highest points tally possible, score one point for every single, two points for double and three points for every treble hit.</p><a href="game_setup.php?game=darts_at" class="button green_button">start game</a>';
 
- 	var nandc_info = '<p>Noughts and crosses requires two players, one being noughts and the other being crosses. A traditional game of noughts and crosses using targets on the dartboard. Hit three targets in either a horizontal, vertical or diagonal line to win the game.</p><a href="game_setup.php?game=nandc" class="button green_button" >start game</a>';
+ 	var nandc_info = '<p>Noughts and crosses requires two players, one being noughts and the other being crosses. A traditional game of noughts and crosses using targets on the dartboard. Hit three targets in either a horizontal, vertical or diagonal line to win the game.</p><a href="game_setup.php?game=nandc" class="button green_button">start game</a>';
 
-	var rtw_info = '<p>Round the world uses all the numbers on the board. Simply hit every section on the board in number order starting from 1.</p><a href="game_setup.php?game=rtw" class="button green_button">start game</a>';
+	var rtw_info = '<p>Round the world uses all the numbers on the board. Simply hit every section on the board in number order starting from 1 and try to get to score the most points possible. Get 1 point for every single, 2 points for every double and 3 points for every treble hit.</p><a href="game_setup.php?game=rtw" class="button green_button">start game</a>';
 
 	var myIndex = 0;
    	function carousel() 
